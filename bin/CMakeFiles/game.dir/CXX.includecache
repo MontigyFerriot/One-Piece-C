@@ -1,0 +1,244 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Animations/Animation.h
+SFML/Graphics.hpp
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Animations/SFML/Graphics.hpp
+Animation_effect.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Animations/Animation_effect.h
+iostream
+-
+algorithm
+-
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Animations/Animation_effect.h
+SFML/Graphics.hpp
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Animations/SFML/Graphics.hpp
+vector
+-
+memory
+-
+array
+-
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Animations/Function_animation.h
+SFML/Graphics.hpp
+-
+Standard_function_animation.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Animations/Standard_function_animation.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Animations/Standard_function_animation.h
+iostream
+-
+SFML/Graphics.hpp
+-
+functional
+-
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Game.h
+vector
+-
+memory
+-
+SFML/Graphics.hpp
+-
+Resource_manager.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Resource_manager.h
+States/State_base.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/States/State_base.h
+States/Menu_state.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/States/Menu_state.h
+States/Play_state.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/States/Play_state.h
+Music_player.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Music_player.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Music_player.h
+SFML/Audio.hpp
+-
+map
+-
+Resource_manager.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Resource_manager.h
+Utility.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Utility.h
+iterator
+-
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Character_base.h
+SFML/Graphics.hpp
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/SFML/Graphics.hpp
+Object_base.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Object_base.h
+../Resource_manager.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Resource_manager.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Luffy.h
+SFML/Graphics.hpp
+-
+../Animations/Animation.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Animations/Animation.h
+../Resource_manager.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Resource_manager.h
+Character_base.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Character_base.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Object.h
+Object_base.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Object_base.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Object_base.h
+../Resource_manager.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Resource_manager.h
+SFML/Graphics.hpp
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/SFML/Graphics.hpp
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Zoro.h
+SFML/Graphics.hpp
+-
+../Animations/Animation.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Animations/Animation.h
+../Resource_manager.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Resource_manager.h
+Character_base.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Character_base.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Resource_manager.h
+iostream
+-
+map
+-
+SFML/Graphics.hpp
+-
+SFML/Audio.hpp
+-
+memory
+-
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/States/Menu_state.h
+iostream
+-
+SFML/Graphics.hpp
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/States/SFML/Graphics.hpp
+TGUI/TGUI.hpp
+-
+State_base.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/States/State_base.h
+Play_state.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/States/Play_state.h
+../Resource_manager.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Resource_manager.h
+../Music_player.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Music_player.h
+../Game.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Game.h
+../Animations/Function_animation.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Animations/Function_animation.h
+../Utility.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Utility.h
+../Objects/Object.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Object.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/States/Play_state.h
+State_base.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/States/State_base.h
+../Resource_manager.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Resource_manager.h
+Menu_state.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/States/Menu_state.h
+../Objects/Character_base.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Character_base.h
+../Objects/Luffy.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Luffy.h
+../Objects/Zoro.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Zoro.h
+../Objects/Object.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Object.h
+memory
+-
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/States/State_base.h
+memory
+-
+../Resource_manager.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Resource_manager.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Utility.h
+random
+-
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/Animations/Animation.cpp
+../../include/Animations/Animation.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Animations/Animation.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/Animations/Animation_effect.cpp
+../../include/Animations/Animation_effect.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Animations/Animation_effect.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/Animations/Standard_function_animation.cpp
+../../include/Animations/Standard_function_animation.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Animations/Standard_function_animation.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/Game.cpp
+../include/Game.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Game.h
+iostream
+-
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/Music_player.cpp
+../include/Music_player.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Music_player.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/Objects/Character_base.cpp
+../../include/Objects/Character_base.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Character_base.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/Objects/Luffy.cpp
+../../include/Objects/Luffy.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Luffy.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/Objects/Object.cpp
+../../include/Objects/Object.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Object.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/Objects/Object_base.cpp
+../../include/Objects/Object_base.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Object_base.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/Objects/Zoro.cpp
+../../include/Objects/Zoro.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Objects/Zoro.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/Resource_manager.cpp
+../include/Resource_manager.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Resource_manager.h
+iostream
+-
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/States/Menu_state.cpp
+../../include/States/Menu_state.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/States/Menu_state.h
+iostream
+-
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/States/Play_state.cpp
+../../include/States/Play_state.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/States/Play_state.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/States/State_base.cpp
+../../include/States/State_base.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/States/State_base.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/Utility.cpp
+../include/Utility.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Utility.h
+
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/src/main.cpp
+../include/Game.h
+/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include/Game.h
+
