@@ -1,0 +1,5 @@
+# main directories
+/bin
+
+# vscode configuration stuff
+.vscode/
