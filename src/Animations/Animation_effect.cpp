@@ -29,7 +29,7 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "../../include/Animations/Animation_effect.h"
+#include "Animations/Animation_effect.h"
 
 //default constructor. Initializes m_current_frame and m_old_time both to 0
 Animation_effect::Animation_effect()

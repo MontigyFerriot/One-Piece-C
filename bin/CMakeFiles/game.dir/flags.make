@@ -6,5 +6,5 @@ CXX_FLAGS =  -O3   -std=gnu++14
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -I"/home/montigyherriot/Desktop/Programming /C++/My projects/One Piece: C/include" 
 

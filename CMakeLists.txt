@@ -5,6 +5,7 @@ set (CMAKE_CXX_STANDARD 14)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
+include_directories(include)
 
 set(SOURCE_FILES
                  ./src/Animations/Animation_effect.cpp

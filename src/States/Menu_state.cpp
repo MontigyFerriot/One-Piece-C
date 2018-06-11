@@ -29,7 +29,7 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "../../include/States/Menu_state.h"
+#include "States/Menu_state.h"
 #include <iostream>
 
 Menu_state::Menu_state(Game* game)
@@ -132,7 +132,6 @@ void Menu_state::switch_to_next_background()
         case 1:
             m_background.get_sprite().setTexture(m_resource_manager.get_texture("katakuri_background.png"));
             m_main_animation = &m_katakuri_background_animation;
-            std::cout << "Katakuri'll be running now" << std::endl;
         break;
         case 2:
             m_background.get_sprite().setTexture(m_resource_manager.get_texture("ace_background.png"));

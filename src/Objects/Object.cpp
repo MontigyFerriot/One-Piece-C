@@ -1,4 +1,4 @@
-#include "../../include/Objects/Object.h"
+#include "Objects/Object.h"
 
 Object::Object(Resource_manager& resource_manager,std::string texture_name)
     :Object_base{resource_manager,texture_name}

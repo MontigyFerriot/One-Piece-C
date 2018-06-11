@@ -37,7 +37,7 @@
 *   You can insert types with resources with it.
 ***********************************************************************/
 
-#include "../include/Resource_manager.h"
+#include "Resource_manager.h"
 #include <iostream>
 
 Resource_manager::Resource_manager()

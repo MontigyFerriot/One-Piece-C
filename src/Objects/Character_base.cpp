@@ -29,7 +29,7 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "../../include/Objects/Character_base.h"
+#include "Objects/Character_base.h"
 
 Character_base::Character_base(Resource_manager& resource_manager,
         std::string texture_name,Direction direction,int health)

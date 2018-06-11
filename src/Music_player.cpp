@@ -29,7 +29,7 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "../include/Music_player.h"
+#include "Music_player.h"
 
 Music_player::Music_player(Resource_manager& resource_manager)
   	:m_resource_manager{resource_manager},

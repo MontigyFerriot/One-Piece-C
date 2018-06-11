@@ -29,10 +29,10 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "../../include/States/Play_state.h"
+#include "States/Play_state.h"
 
 Play_state::Play_state(Game* game)
-    :State(game),
+    :State{game},
      resource_manager{m_game->get_resource_manager()},
      m_background{resource_manager,"marineford_bay.png"}
 {   

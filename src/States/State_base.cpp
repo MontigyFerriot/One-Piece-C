@@ -29,7 +29,7 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "../../include/States/State_base.h"
+#include "States/State_base.h"
 
 State::State()
 :m_game{nullptr}

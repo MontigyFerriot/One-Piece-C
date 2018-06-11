@@ -29,7 +29,7 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "../../include/Animations/Animation.h"
+#include "Animations/Animation.h"
 
 
 // Animation() - default constructor. Calls default base class constuctor Animation_Effect{} 
