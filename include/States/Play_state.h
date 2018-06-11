@@ -33,12 +33,12 @@
 #define PLAY_STATE_H
 
 #include "State_base.h"
-#include "../Resource_manager.h"
+#include "Resource_manager.h"
 #include "Menu_state.h"
-#include "../Objects/Character_base.h"
-#include "../Objects/Luffy.h"
-#include "../Objects/Zoro.h"
-#include "../Objects/Object.h"
+#include "Objects/Character_base.h"
+#include "Objects/Luffy.h"
+#include "Objects/Zoro.h"
+#include "Objects/Object.h"
 
 #include <memory>
 

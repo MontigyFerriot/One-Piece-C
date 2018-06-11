@@ -32,7 +32,7 @@
 #ifndef OBJECT_BASE_H
 #define OBJECT_BASE_H
 
-#include "../Resource_manager.h"
+#include "Resource_manager.h"
 #include "SFML/Graphics.hpp"
 
 // An Object_base is an abstract base class. 

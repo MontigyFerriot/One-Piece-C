@@ -33,8 +33,8 @@
 #define ZORO_H
 
 #include <SFML/Graphics.hpp>
-#include "../Animations/Animation.h"
-#include "../Resource_manager.h"
+#include "Animations/Animation.h"
+#include "Resource_manager.h"
 #include "Character_base.h"
 
 class Zoro : public Character_base

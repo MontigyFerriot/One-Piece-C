@@ -32,7 +32,7 @@
 #ifndef STATE_BASE_H
 #define STATE_BASE_H
 #include <memory>
-#include "../Resource_manager.h"
+#include "Resource_manager.h"
 
 class Game; // forward declarations
 class State

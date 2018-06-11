@@ -38,12 +38,12 @@
 #include <TGUI/TGUI.hpp>
 #include "State_base.h"
 #include "Play_state.h"
-#include "../Resource_manager.h"
-#include "../Music_player.h"
-#include "../Game.h"
-#include "../Animations/Function_animation.h"
-#include "../Utility.h"
-#include "../Objects/Object.h"
+#include "Resource_manager.h"
+#include "Music_player.h"
+#include "Game.h"
+#include "Animations/Function_animation.h"
+#include "Utility.h"
+#include "Objects/Object.h"
 
 class Menu_state : public State
 { 

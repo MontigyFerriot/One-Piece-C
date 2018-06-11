@@ -35,7 +35,7 @@
 
 #include "SFML/Graphics.hpp"
 #include "Object_base.h"
-#include "../Resource_manager.h"
+#include "Resource_manager.h"
 
 // enum which represent the direction of character 
 enum class Direction
