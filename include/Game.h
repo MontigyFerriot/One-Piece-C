@@ -36,9 +36,6 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include "Resource_manager.h"
-#include "States/State_base.h"
-#include "States/Menu_state.h"
-#include "States/Play_state.h"
 #include "Music_player.h"
 
 class State; // forward declaration needed to use state

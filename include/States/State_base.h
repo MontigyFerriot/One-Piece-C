@@ -31,10 +31,12 @@
 
 #ifndef STATE_BASE_H
 #define STATE_BASE_H
+
 #include <memory>
 #include "Resource_manager.h"
+#include "Music_player.h"
 
-class Game; // forward declarations
+class Game;
 class State
 {
   public:
@@ -49,14 +51,23 @@ class State
     // State is an abstract class. User can't create an instance of it.
     // Copying is prevented.
     State(const State& another) = delete;
+    State() = delete;
     void operator=(const State& another) = delete;
   protected:
     // State is an abstract class. User can't create an instance of it.
     // Constructors are defined only for inheriting purposes.
-    State();
     explicit State(Game* game); 
   protected:
     Game* m_game;
+    Resource_manager& m_resource_manager;
+    Music_player& m_music_player;
+
+    // constants
+    const float m_window_width;
+    const float m_window_height;
+
+    const float m_half_window_width;
+    const float m_half_window_height;
 };
 
 #endif // STATE_BASE_H

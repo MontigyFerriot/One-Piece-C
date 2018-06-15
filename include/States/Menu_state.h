@@ -37,14 +37,11 @@
 #include "SFML/Graphics.hpp"
 #include <TGUI/TGUI.hpp>
 #include "State_base.h"
-#include "Play_state.h"
-#include "Resource_manager.h"
-#include "Music_player.h"
-#include "Game.h"
 #include "Animations/Function_animation.h"
 #include "Utility.h"
 #include "Objects/Object.h"
 
+class Game;
 class Menu_state : public State
 { 
   public:
@@ -62,17 +59,7 @@ class Menu_state : public State
 
     void switch_to_next_background();
   private:
-    Resource_manager& m_resource_manager;
-    Music_player& m_music_player;
-
     tgui::Gui m_gui;
-
-    // constants
-    const float m_window_width;
-    const float m_window_height;
-
-    const float m_half_window_width;
-    const float m_half_window_height;
 
     const float m_button_width;
     const float m_button_height;

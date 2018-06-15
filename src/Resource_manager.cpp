@@ -101,12 +101,6 @@ sf::Font& Resource_manager::get_font(const std::string& font_name)
     return m_fonts[font_name];
 }
 
-// returns needed music 
-music_ptr& Resource_manager::get_music(const std::string& music_name)
-{
-    return m_musics[music_name];
-}
-
 // import_texture() allows to add textures in a simple way 
 // just by adding its name without path to it for instance: file.png
 // throws std::runtime_error if texture doesn't load.

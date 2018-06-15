@@ -31,14 +31,17 @@
 
 #include "States/State_base.h"
 
-State::State()
-:m_game{nullptr}
-{
-}
+#include "Game.h"
 
 State::State(Game* game)
-:m_game(game)
-{
+    :m_game{game},
+     m_resource_manager{game->get_resource_manager()},
+     m_music_player{game->get_music_player()},
+     m_window_width{static_cast<float>(game->get_win_width())},
+     m_window_height{static_cast<float>(game->get_win_height())},
+     m_half_window_width{m_window_width / 2.0f},
+     m_half_window_height{m_window_height / 2.0f}
+{ 
 }
 
 // main logic function

@@ -32,6 +32,8 @@
 #include "Game.h"
 
 #include <iostream>
+#include "States/State_base.h"
+#include "States/Menu_state.h"
 
 Game::Game()
   :m_resource_manager{},

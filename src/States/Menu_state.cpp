@@ -30,17 +30,14 @@
 **********************************************************************************************************************************/
 
 #include "States/Menu_state.h"
+
 #include <iostream>
+#include "Game.h"
+#include "States/Play_state.h"
 
 Menu_state::Menu_state(Game* game)
     :State{game},
-     m_resource_manager{game->get_resource_manager()},
-     m_music_player{game->get_music_player()},
      m_gui{game->get_render_window()},
-     m_window_width{static_cast<float>(game->get_win_width())},
-     m_window_height{static_cast<float>(game->get_win_height())},
-     m_half_window_width{m_window_width / 2.0f},
-     m_half_window_height{m_window_height / 2.0f},
      m_button_width{240.0f},
      m_button_height{60.0f},
      m_background_number{0},
@@ -160,7 +157,7 @@ void Menu_state::set_up_gui()
     play_button->setTextSize(35u);
     play_button->connect("pressed",[&]() 
     { 
-        m_game->change_state(new Play_state(m_game)); 
+        m_game->change_state(new Play_state{m_game}); 
     });
     m_gui.add(play_button);
     

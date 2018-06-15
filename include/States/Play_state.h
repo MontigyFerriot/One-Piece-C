@@ -33,8 +33,6 @@
 #define PLAY_STATE_H
 
 #include "State_base.h"
-#include "Resource_manager.h"
-#include "Menu_state.h"
 #include "Objects/Character_base.h"
 #include "Objects/Luffy.h"
 #include "Objects/Zoro.h"
@@ -42,9 +40,11 @@
 
 #include <memory>
 
+class Game;
 class Play_state : public State
 {
   public:
+    //Play_state() = delete;
     explicit Play_state(Game* game);
 
     // Don't forget these three are pure virtuals
@@ -53,8 +53,6 @@ class Play_state : public State
     void draw();
     
   private:
-    Resource_manager& resource_manager;
-
     Object m_background;
 
     std::unique_ptr<Character_base> player_first; 

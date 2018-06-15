@@ -31,13 +31,15 @@
 
 #include "States/Play_state.h"
 
+#include "Game.h"
+#include "States/Menu_state.h"
+
 Play_state::Play_state(Game* game)
     :State{game},
-     resource_manager{m_game->get_resource_manager()},
-     m_background{resource_manager,"marineford_bay.png"}
+     m_background{m_resource_manager,"marineford_bay.png"}
 {   
-    player_first = std::make_unique<Luffy>(resource_manager);
-    player_second = std::make_unique<Zoro>(resource_manager);
+    player_first = std::make_unique<Luffy>(m_resource_manager);
+    player_second = std::make_unique<Zoro>(m_resource_manager);
     m_background.get_sprite().setScale(3.0f,3.0f);
 
     //player_first->get_sprite().setPosition(100f,m_floor);
