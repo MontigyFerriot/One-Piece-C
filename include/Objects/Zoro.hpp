@@ -1,5 +1,5 @@
 /**********************************************************************************************************************************
-* Copyright (c) 2017-2018 Maciej Falkowski  
+* Copyright (c) 2017-2018 El F. Percy
 * Standard Header. 
 *
 * This project is One Piece: Gigant Battle! 2 New World almost copy. 
@@ -29,52 +29,45 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#ifndef FUNCTION_ANIMATION_H
-#define FUNCTION_ANIMATION_H
+#ifndef ZORO_H 
+#define ZORO_H
 
 #include <SFML/Graphics.hpp>
-#include "Standard_function_animation.h"
+#include "Animations/Animation.hpp"
+#include "Resource_manager.hpp"
+#include "Character_base.hpp"
 
-template<typename Fct = Standard_function_animation> 
-class Function_animation
+class Zoro : public Character_base
 {
-  public:   
-    // Function_animation() - constructor
-    // and initialize m_is_animated_now to false. 
-    explicit Function_animation(const Fct& function)
-        :m_function{function},
-         m_infinite_animation{false},
-         m_is_animated_now{false}
-    {
-    }
+  public:
+    explicit Zoro(Resource_manager& resource_manager);
 
-    // void animate(sf::Sprite& sprite,float current_time); is main logic member function. It animates sprite
-    // by setting frames continuously in time with a small gap of time beetween each frame.
-    // It also checks if Animation is currently used (is being animated), if not it sets m_is_animated_now to false. 
-    void animate(sf::Sprite& sprite,float current_time)
-    {
-            if(!m_infinite_animation) {}
-            else if(m_function.get_time_to_next_frame() > (current_time - m_function.get_old_time() ) + 0.5f)
-            { 
-                m_is_animated_now = false;
-            }
-            if(!m_is_animated_now)
-            {
-                m_function.set_old_time(current_time);
-                m_is_animated_now = true;
-            }
-        sprite.setTextureRect(m_function(current_time));
-    }
+    void standing(float current_time);
+    void walking_right(float current_time);
+    void walking_left(float current_time);
 
-    bool is_end() const { return m_function.is_end(); }
-    void restart() { m_function.restart(); }
-    void set_infinite_animation(bool b) { m_infinite_animation = b; }
+    // Defining virtual void logic() from Object_base
+    void logic_first(float dt, float current_time);
+    
+    // Defining virtual void logic() from Object_base
+    void logic_second(float dt, float current_time);
   private:
-    // main functor which does animation for us.
-    Fct m_function;
-    // indicates if Animation is currently used. By default it is initialied to false
-    bool m_infinite_animation;
-    bool m_is_animated_now;
+    // Defining virtual void set_up_animations() from Object_base
+    void set_up_animations();
+    
+    // Defining virtual void unique_set_up() from Object_base
+    void unique_set_up(Resource_manager& resource_manager); 
+  
+  private:
+    sf::Texture m_zoro;
+
+    Animation m_standing_right;
+    Animation m_standing_left;
+    Animation m_walking_left;
+    Animation m_walking_right;
+    //Animation m_basic_attack_left;
+    //Animation m_basic_attack_right;
+
 };
 
-#endif // FUNCTION_ANIMATION_H
+#endif //ZORO_H

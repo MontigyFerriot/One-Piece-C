@@ -34,8 +34,8 @@
 #define CHARACTER_BASE_H
 
 #include "SFML/Graphics.hpp"
-#include "Object_base.h"
-#include "Resource_manager.h"
+#include "Object_base.hpp"
+#include "Resource_manager.hpp"
 
 // enum which represent the direction of character 
 enum class Direction

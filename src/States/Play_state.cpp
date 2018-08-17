@@ -29,10 +29,10 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "States/Play_state.h"
+#include "States/Play_state.hpp"
 
-#include "Game.h"
-#include "States/Menu_state.h"
+#include "Game.hpp"
+#include "States/Menu_state.hpp"
 
 Play_state::Play_state(Game* game)
     :State{game},
@@ -48,7 +48,7 @@ Play_state::Play_state(Game* game)
 
 void Play_state::input(float dt, float clocked_time)
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) //If Escape is pressed
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) 
         m_game->change_state(new Menu_state(m_game));
 }
 

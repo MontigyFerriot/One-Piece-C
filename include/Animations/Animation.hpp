@@ -1,5 +1,5 @@
 /**********************************************************************************************************************************
-* Copyright (c) 2017-2018 El F. Percy
+* Copyright (c) 2017-2018 Maciej Falkowski  
 * Standard Header. 
 *
 * This project is One Piece: Gigant Battle! 2 New World almost copy. 
@@ -29,36 +29,35 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#ifndef PLAY_STATE_H
-#define PLAY_STATE_H
+#ifndef ANIMATION_H
+#define ANIMATION_H
 
-#include "State_base.h"
-#include "Objects/Character_base.h"
-#include "Objects/Luffy.h"
-#include "Objects/Zoro.h"
-#include "Objects/Object.h"
+#include "SFML/Graphics.hpp"
+#include "Animation_effect.hpp"
+#include <iostream>
+#include <algorithm>
 
-#include <memory>
-
-class Game;
-class Play_state : public State
+class Animation : public Animation_effect
 {
   public:
-    //Play_state() = delete;
-    explicit Play_state(Game* game);
+    // Animation() - default constructor. Calls default base class constuctor Animation_Effect{} 
+    // and initialize m_is_animated_now to false. 
+    Animation();
 
-    // Don't forget these three are pure virtuals
-    void input(float dt, float clocked_time);
-    void update(float dt, float clocked_time);
-    void draw();
-    
+    // void animate(sf::Sprite& sprite,float current_time); is main logic member function. It animates sprite
+    // by setting frames continuously in time with a small gap of time beetween each frame.
+    // It also checks if Animation is currently used (is being animated), if not it sets m_is_animated_now to false. 
+    void animate(sf::Sprite& sprite,float current_time);
+
+  public:
+    // float longest_frame_gap(); - it returns biggest time gap beetween frames. 
+    // return: float of unsigned value 
+    float longest_frame_gap();
+
   private:
-    Object m_background;
-
-    std::unique_ptr<Character_base> player_first; 
-    std::unique_ptr<Character_base> player_second; 
-
-    static constexpr float m_floor = 300.f;
+    // indicates if Animation is currently used. By default it is initialied to false
+    bool m_is_animated_now;
 };
 
-#endif // PLAY_STATE_H
+
+#endif // ANIMATION_H

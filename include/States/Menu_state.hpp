@@ -29,35 +29,52 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#ifndef ANIMATION_H
-#define ANIMATION_H
+#ifndef MENU_STATE_H
+#define MENU_STATE_H
+
+#include <iostream>
 
 #include "SFML/Graphics.hpp"
-#include "Animation_effect.h"
-#include <iostream>
-#include <algorithm>
+#include <TGUI/TGUI.hpp>
+#include "State_base.hpp"
+#include "Animations/Function_animation.hpp"
+#include "Utility.hpp"
+#include "Objects/Object.hpp"
 
-class Animation : public Animation_effect
-{
+class Game;
+class Menu_state : public State
+{ 
   public:
-    // Animation() - default constructor. Calls default base class constuctor Animation_Effect{} 
-    // and initialize m_is_animated_now to false. 
-    Animation();
+    explicit Menu_state(Game* game);
 
-    // void animate(sf::Sprite& sprite,float current_time); is main logic member function. It animates sprite
-    // by setting frames continuously in time with a small gap of time beetween each frame.
-    // It also checks if Animation is currently used (is being animated), if not it sets m_is_animated_now to false. 
-    void animate(sf::Sprite& sprite,float current_time);
-
-  public:
-    // float longest_frame_gap(); - it returns biggest time gap beetween frames. 
-    // return: float of unsigned value 
-    float longest_frame_gap();
-
+    ~Menu_state();
   private:
-    // indicates if Animation is currently used. By default it is initialied to false
-    bool m_is_animated_now;
+    // void some_logic();
+
+    void input(float dt, float clocked_time);
+    void update(float dt, float clocked_time);
+    void draw();
+  private:
+    void set_up_gui();
+
+    void switch_to_next_background();
+  private:
+    tgui::Gui m_gui;
+
+    const float m_button_width;
+    const float m_button_height;
+
+    Object m_logo;
+    Object m_background;
+
+    Function_animation<>* m_main_animation;
+    int m_background_number;
+
+    Function_animation<> m_ace_background_animation;
+    Function_animation<> m_katakuri_background_animation;
+    Function_animation<> m_strawhats_animation;
+    Function_animation<> m_luffy_gear_second_animation;
 };
 
+#endif // MENU_STATE_H
 
-#endif // ANIMATION_H

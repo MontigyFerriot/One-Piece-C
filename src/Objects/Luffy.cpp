@@ -29,7 +29,7 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "Objects/Luffy.h"
+#include "Objects/Luffy.hpp"
 
 Luffy::Luffy(Resource_manager& resource_manager)
     :Character_base{resource_manager,"luffy_right.png",Direction::Right,100},

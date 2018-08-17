@@ -1,5 +1,5 @@
 /**********************************************************************************************************************************
-* Copyright (c) 2017-2018 Maciej Falkowski  
+* Copyright (c) 2017-2018 El F. Percy
 * Standard Header. 
 *
 * This project is One Piece: Gigant Battle! 2 New World almost copy. 
@@ -29,46 +29,53 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#ifndef OBJECT_BASE_H
-#define OBJECT_BASE_H
+#ifndef LUFFY_H 
+#define LUFFY_H
 
-#include "Resource_manager.h"
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
+#include "Animations/Animation.hpp"
+#include "Resource_manager.hpp"
+#include "Character_base.hpp"
 
-// An Object_base is an abstract base class. 
-// It provides an interface to draw an object
-// Every drawable object needs to inherit after it. 
-class Object_base 
+/*
+  We need to:
+  -draw luffy to the screen ( we use draw() method)
+  -DON'T need to input to luffy 
+  -logic ( this is logic() method which can be used directly by Luffy or Character* ) 
+*/
+
+class Luffy : public Character_base
 {
   public:
-    // Character_base is an abstract class, copying prevented 
-    Object_base(const Object_base& another) = delete;
-    void operator=(const Object_base& another) = delete;
+    explicit Luffy(Resource_manager& resource_manager);
+
+    void standing(float current_time);
+    void shake_hands(float current_time);
+    void walking_right(float current_time);
+    void walking_left(float current_time);
+
+    // Defining virtual void logic() from Object_base
+    void logic_first(float dt, float current_time);
     
-    // draws an object to window 
-    void draw(sf::RenderWindow& window);
+    // Defining virtual void logic() from Object_base
+    void logic_second(float dt, float current_time);
+  private:
+    // Defining virtual void set_up_animations() from Object_base
+    void set_up_animations();
+    
+    // Defining virtual void unique_set_up() from Object_base
+    void unique_set_up(Resource_manager& resource_manager); 
+     
+  private:
+    sf::Texture m_luffy_left;
+    sf::Texture m_luffy_right;
 
-    // set object position to the center 
-    void center_origin();
-
-    // returns reference to sprite
-    sf::Sprite& get_sprite();
-
-  protected:
-    // Character_base is an abstract class, copying prevented. Constructor is innaccessible outside the class 
-    Object_base(Resource_manager& resource_manager, std::string texture_name);
-
-    // set up is main function. It calls set_up_animations() and unique_set_up()
-    void set_up(Resource_manager& resource_manager);
-
-    // set all of the animations in derived class  
-    virtual void set_up_animations() = 0;
-
-    // other set up's in derived class
-    virtual void unique_set_up(Resource_manager& resource_manager) = 0;
-
-  protected:
-    sf::Sprite m_sprite;
+    Animation m_standing;
+    Animation m_shaking_hands;
+    Animation m_walking_left;
+    Animation m_walking_right;
+    //Animation m_basic_attack_left;
+    //Animation m_basic_attack_right;
 };
 
-#endif // OBJECT_BASE_H
+#endif //LUFFY_H

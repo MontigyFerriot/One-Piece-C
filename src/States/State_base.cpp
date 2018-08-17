@@ -29,9 +29,9 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "States/State_base.h"
+#include "States/State_base.hpp"
 
-#include "Game.h"
+#include "Game.hpp"
 
 State::State(Game* game)
     :m_game{game},

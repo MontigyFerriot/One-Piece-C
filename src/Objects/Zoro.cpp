@@ -29,7 +29,7 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "Objects/Zoro.h"
+#include "Objects/Zoro.hpp"
 
 Zoro::Zoro(Resource_manager& resource_manager)
     :Character_base{resource_manager,"zoro.png",Direction::Left,100},

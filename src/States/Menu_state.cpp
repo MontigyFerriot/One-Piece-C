@@ -29,11 +29,11 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "States/Menu_state.h"
+#include "States/Menu_state.hpp"
 
 #include <iostream>
-#include "Game.h"
-#include "States/Play_state.h"
+#include "Game.hpp"
+#include "States/Play_state.hpp"
 
 Menu_state::Menu_state(Game* game)
     :State{game},

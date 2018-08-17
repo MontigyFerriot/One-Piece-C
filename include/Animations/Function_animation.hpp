@@ -1,5 +1,5 @@
 /**********************************************************************************************************************************
-* Copyright (c) 2017-2018 El F. Percy
+* Copyright (c) 2017-2018 Maciej Falkowski  
 * Standard Header. 
 *
 * This project is One Piece: Gigant Battle! 2 New World almost copy. 
@@ -29,45 +29,52 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#ifndef STATE_BASE_H
-#define STATE_BASE_H
+#ifndef FUNCTION_ANIMATION_H
+#define FUNCTION_ANIMATION_H
 
-#include <memory>
-#include "Resource_manager.h"
-#include "Music_player.h"
+#include <SFML/Graphics.hpp>
+#include "Standard_function_animation.hpp"
 
-class Game;
-class State
+template<typename Fct = Standard_function_animation> 
+class Function_animation
 {
-  public:
-    // main logic function
-    void logic(float dt, float clocked_time);
+  public:   
+    // Function_animation() - constructor
+    // and initialize m_is_animated_now to false. 
+    explicit Function_animation(const Fct& function)
+        :m_function{function},
+         m_infinite_animation{false},
+         m_is_animated_now{false}
+    {
+    }
 
-    // logic pure virtual functions 
-    virtual void input(float dt, float clocked_time) = 0;
-    virtual void update(float dt, float clocked_time) = 0;
-    virtual void draw() = 0;
+    // void animate(sf::Sprite& sprite,float current_time); is main logic member function. It animates sprite
+    // by setting frames continuously in time with a small gap of time beetween each frame.
+    // It also checks if Animation is currently used (is being animated), if not it sets m_is_animated_now to false. 
+    void animate(sf::Sprite& sprite,float current_time)
+    {
+            if(!m_infinite_animation) {}
+            else if(m_function.get_time_to_next_frame() > (current_time - m_function.get_old_time() ) + 0.5f)
+            { 
+                m_is_animated_now = false;
+            }
+            if(!m_is_animated_now)
+            {
+                m_function.set_old_time(current_time);
+                m_is_animated_now = true;
+            }
+        sprite.setTextureRect(m_function(current_time));
+    }
 
-    // State is an abstract class. User can't create an instance of it.
-    // Copying is prevented.
-    State(const State& another) = delete;
-    State() = delete;
-    void operator=(const State& another) = delete;
-  protected:
-    // State is an abstract class. User can't create an instance of it.
-    // Constructors are defined only for inheriting purposes.
-    explicit State(Game* game); 
-  protected:
-    Game* m_game;
-    Resource_manager& m_resource_manager;
-    Music_player& m_music_player;
-
-    // constants
-    const float m_window_width;
-    const float m_window_height;
-
-    const float m_half_window_width;
-    const float m_half_window_height;
+    bool is_end() const { return m_function.is_end(); }
+    void restart() { m_function.restart(); }
+    void set_infinite_animation(bool b) { m_infinite_animation = b; }
+  private:
+    // main functor which does animation for us.
+    Fct m_function;
+    // indicates if Animation is currently used. By default it is initialied to false
+    bool m_infinite_animation;
+    bool m_is_animated_now;
 };
 
-#endif // STATE_BASE_H
+#endif // FUNCTION_ANIMATION_H

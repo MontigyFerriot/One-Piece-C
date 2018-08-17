@@ -37,8 +37,7 @@
 *   You can insert types with resources with it.
 ***********************************************************************/
 
-#include "Resource_manager.h"
-#include <iostream>
+#include "Resource_manager.hpp"
 
 Resource_manager::Resource_manager()
 {
@@ -52,17 +51,18 @@ Resource_manager::Resource_manager()
 // adds all required textures to the program
 void Resource_manager::load_textures()
 {
-    import_texture("luffy_right.png");
-    import_texture("luffy_left.png");
-    import_texture("zoro.png");
-    import_texture("marineford_bay.png");
-    import_texture("ice_texture.png");
-    import_texture("one_piece_logo.png");
-    import_texture("background.png");
-    import_texture("katakuri_background.png");
-    import_texture("strawhats1.png");
-    import_texture("ace_background.png");
-    import_texture("luffy_gear_second.png");
+    std::size_t n = 0;
+    import_texture("ace_background.png", n++);
+    import_texture("background.png", n++);
+    import_texture("ice_texture.png", n++);
+    import_texture("katakuri_background.png", n++);
+    import_texture("luffy_gear_second.png", n++);
+    import_texture("luffy_left.png", n++);
+    import_texture("luffy_right.png", n++);
+    import_texture("marineford_bay.png", n++);
+    import_texture("one_piece_logo.png", n++);
+    import_texture("strawhats1.png", n++);
+    import_texture("zoro.png", n++);
 }
 
 // adds all required sounds to the program
@@ -78,33 +78,28 @@ void Resource_manager::load_fonts()
 // adds all required musics to the program
 void Resource_manager::load_musics()
 {
-    import_music("music_overtaken.ogg");
-    import_music("music_we_are.ogg");
-    import_music("music_the_very_strongest.ogg");
+    std::size_t n = 0;
+    import_music("music_overtaken.ogg", n++);
+    import_music("music_the_very_strongest.ogg", n++);
+    import_music("music_we_are.ogg", n++);
 }
 
-// returns needed texture as reference 
 sf::Texture& Resource_manager::get_texture(const std::string& texture_name)
 {
-    return m_textures[texture_name];
+    return binary_search(m_textures, texture_name);
 }
 
-// returns needed sound as reference 
 sf::SoundBuffer& Resource_manager::get_sound(const std::string& sound_name)
 {
-    return m_sounds[sound_name];
+    return binary_search(m_sounds, sound_name);
 }
 
-// returns needed font as reference 
 sf::Font& Resource_manager::get_font(const std::string& font_name)
 {
-    return m_fonts[font_name];
+    return binary_search(m_fonts, font_name);
 }
 
-// import_texture() allows to add textures in a simple way 
-// just by adding its name without path to it for instance: file.png
-// throws std::runtime_error if texture doesn't load.
-void Resource_manager::import_texture(const std::string& texture_name)
+void Resource_manager::import_texture(const std::string& texture_name, std::size_t n)
 {
     sf::Texture texture; 
     if(!texture.loadFromFile(("../img/" + texture_name)))
@@ -112,15 +107,10 @@ void Resource_manager::import_texture(const std::string& texture_name)
         throw std::runtime_error("Cannot load texture: " + texture_name); 
     }
     else
-    {    
-        m_textures[texture_name] = texture;
-    }
+        m_textures[n] = std::make_pair(texture_name, texture);
 }
 
-// import_sound() allows to add sounds in a simple way 
-// just by adding its name without path to it for instance: file.png
-// throws std::runtime_error if sound doesn't load.
-void Resource_manager::import_sound(const std::string& sound_name)
+void Resource_manager::import_sound(const std::string& sound_name, std::size_t n)
 {
     //Something is wrong here
     sf::SoundBuffer sound; 
@@ -129,15 +119,10 @@ void Resource_manager::import_sound(const std::string& sound_name)
         throw std::runtime_error("Cannot load sound: " + sound_name); 
     }
     else
-    {    
-        m_sounds[sound_name] = sound;
-    }
+        m_sounds[n] = std::make_pair(sound_name, sound);
 }
 
-// import_font() allows to add fonts in a simple way 
-// just by adding its name without path to it for instance: file.png
-// throws std::runtime_error if font doesn't load.
-void Resource_manager::import_font(const std::string& font_name)
+void Resource_manager::import_font(const std::string& font_name, std::size_t n)
 {
     sf::Font font; 
     if(!font.loadFromFile(("../fonts/" + font_name)))
@@ -145,15 +130,10 @@ void Resource_manager::import_font(const std::string& font_name)
         throw std::runtime_error("Cannot load font: " + font_name); 
     }
     else
-    {    
-        m_fonts[font_name] = font;
-    }
+        m_fonts[n] = std::make_pair(font_name, font);
 }
 
-// import_music() allows to add musics in a simple way 
-// just by adding its name without path to it for instance: file.png
-// throws std::runtime_error if music doesn't load.
-void Resource_manager::import_music(const std::string& music_name)
+void Resource_manager::import_music(const std::string& music_name, std::size_t n)
 {
     music_ptr music = std::make_shared<sf::Music>(); 
     if(!music->openFromFile(("../sfx/" + music_name)))
@@ -161,7 +141,5 @@ void Resource_manager::import_music(const std::string& music_name)
         throw std::runtime_error("Cannot load music: " + music_name); 
     }
     else
-    {    
-        m_musics[music_name] = music;
-    }
+        m_musics[n] = std::make_pair(music_name, music);
 }

@@ -29,36 +29,36 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#ifndef MUSIC_PLAYER_H
-#define MUSIC_PLAYER_H
+#ifndef PLAY_STATE_H
+#define PLAY_STATE_H
 
-#include <SFML/Audio.hpp>
-#include <map>
-#include "Resource_manager.h"
-#include "Utility.h"
-#include <iterator>
+#include "State_base.hpp"
+#include "Objects/Character_base.hpp"
+#include "Objects/Luffy.hpp"
+#include "Objects/Zoro.hpp"
+#include "Objects/Object.hpp"
 
-class Music_player
+#include <memory>
+
+class Game;
+class Play_state : public State
 {
   public:
-    using Music_iter = std::map<std::string,music_ptr>::iterator;
-  public:
-    explicit Music_player(Resource_manager& resource_manager);
+    //Play_state() = delete;
+    explicit Play_state(Game* game);
 
-    // float t stands for time value
-    void play() noexcept;
-    void restart(float t) noexcept;
-    void stop() noexcept;
-    void next(float t) noexcept;
-    void previous(float t) noexcept;
-    void shuffle_play(float t) noexcept;
-
-   ~Music_player(); 
+    // Don't forget these three are pure virtuals
+    void input(float dt, float clocked_time);
+    void update(float dt, float clocked_time);
+    void draw();
+    
   private:
-    Resource_manager& m_resource_manager;
-    Music_iter m_current_music;
-    float m_last_activity_time;
-    static constexpr float delay = 0.5f;
+    Object m_background;
+
+    std::unique_ptr<Character_base> player_first; 
+    std::unique_ptr<Character_base> player_second; 
+
+    static constexpr float m_floor = 300.f;
 };
 
-#endif // MUSIC_PLAYER_H
+#endif // PLAY_STATE_H

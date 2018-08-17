@@ -29,53 +29,45 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#ifndef LUFFY_H 
-#define LUFFY_H
+#ifndef STATE_BASE_H
+#define STATE_BASE_H
 
-#include <SFML/Graphics.hpp>
-#include "Animations/Animation.h"
-#include "Resource_manager.h"
-#include "Character_base.h"
+#include <memory>
+#include "Resource_manager.hpp"
+#include "Music_player.hpp"
 
-/*
-  We need to:
-  -draw luffy to the screen ( we use draw() method)
-  -DON'T need to input to luffy 
-  -logic ( this is logic() method which can be used directly by Luffy or Character* ) 
-*/
-
-class Luffy : public Character_base
+class Game;
+class State
 {
   public:
-    explicit Luffy(Resource_manager& resource_manager);
+    // main logic function
+    void logic(float dt, float clocked_time);
 
-    void standing(float current_time);
-    void shake_hands(float current_time);
-    void walking_right(float current_time);
-    void walking_left(float current_time);
+    // logic pure virtual functions 
+    virtual void input(float dt, float clocked_time) = 0;
+    virtual void update(float dt, float clocked_time) = 0;
+    virtual void draw() = 0;
 
-    // Defining virtual void logic() from Object_base
-    void logic_first(float dt, float current_time);
-    
-    // Defining virtual void logic() from Object_base
-    void logic_second(float dt, float current_time);
-  private:
-    // Defining virtual void set_up_animations() from Object_base
-    void set_up_animations();
-    
-    // Defining virtual void unique_set_up() from Object_base
-    void unique_set_up(Resource_manager& resource_manager); 
-     
-  private:
-    sf::Texture m_luffy_left;
-    sf::Texture m_luffy_right;
+    // State is an abstract class. User can't create an instance of it.
+    // Copying is prevented.
+    State(const State& another) = delete;
+    State() = delete;
+    void operator=(const State& another) = delete;
+  protected:
+    // State is an abstract class. User can't create an instance of it.
+    // Constructors are defined only for inheriting purposes.
+    explicit State(Game* game); 
+  protected:
+    Game* m_game;
+    Resource_manager& m_resource_manager;
+    Music_player& m_music_player;
 
-    Animation m_standing;
-    Animation m_shaking_hands;
-    Animation m_walking_left;
-    Animation m_walking_right;
-    //Animation m_basic_attack_left;
-    //Animation m_basic_attack_right;
+    // constants
+    const float m_window_width;
+    const float m_window_height;
+
+    const float m_half_window_width;
+    const float m_half_window_height;
 };
 
-#endif //LUFFY_H
+#endif // STATE_BASE_H

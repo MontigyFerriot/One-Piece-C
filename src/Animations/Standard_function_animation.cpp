@@ -29,7 +29,7 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "Animations/Standard_function_animation.h"
+#include "Animations/Standard_function_animation.hpp"
 
 Standard_function_animation::Standard_function_animation(int origin_x_coord,int origin_y_coord,int max_x_coord,int max_y_coord,
         int width, int height,float time_to_next_frame,const Func& move_function)

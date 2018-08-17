@@ -29,66 +29,32 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#ifndef GAME_H
-#define GAME_H
+#ifndef MUSIC_PLAYER_H
+#define MUSIC_PLAYER_H
 
-#include <vector>
-#include <memory>
-#include <SFML/Graphics.hpp>
-#include "Resource_manager.h"
-#include "Music_player.h"
+#include <SFML/Audio.hpp>
+#include "Resource_manager.hpp"
+#include "Utility.hpp"
 
-class State; // forward declaration needed to use state
-class Game
+class Music_player
 {
-  public: 
-    Game();
-    
-    // main logic function. It runs main loop of the program.
-    // manages time and states
-    void run_main_loop();
+  public:
+    explicit Music_player(Resource_manager& resource_manager);
 
-    // changes current state
-    void change_state(State* state);
+    // float t stands for time value
+    void play() noexcept;
+    void restart(float t) noexcept;
+    void stop() noexcept;
+    void next(float t) noexcept;
+    void previous(float t) noexcept;
+    void shuffle_play(float t) noexcept;
 
-    // return window's measure
-    int get_win_width() const;
-    int get_win_height() const;
-
-    // returns reference to resource_manager
-    Resource_manager& get_resource_manager();
-    
-    // returns reference to music_player
-    Music_player& get_music_player();
-
-    // returns reference to event 
-    sf::Event& get_event();
-
-    // returns reference to render_window
-    sf::RenderWindow& get_render_window();
+    ~Music_player(); 
   private:
-    // handles all window events
-    void window_event();
-
-    // display number of frames per second. WIP
-    void display_fps(float current_time);  
-
-  private:
-    sf::RenderWindow m_window; // window of the game
-    static constexpr int m_win_width = 1366; // width of the window
-    static constexpr int m_win_height = 768; // height of the window
-
-    std::shared_ptr<State> m_state; // pointer to current state 
-
-    Resource_manager m_resource_manager; // default Resource_manager
-    Music_player m_music_player;
-
-    sf::Event m_event;
-
-    sf::Text m_frames_per_second; // sf::Text which shows current frames rate
-    sf::Font m_arial; // font used in the program 
-
-    float m_last_time; // holds time of last
+    Resource_manager& m_resource_manager;
+    std::size_t m_current_music;
+    float m_last_activity_time;
+    static constexpr float delay = 0.5f;
 };
 
-#endif // GAME_H
+#endif // MUSIC_PLAYER_H

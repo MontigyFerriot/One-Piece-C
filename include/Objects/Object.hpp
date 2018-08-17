@@ -1,7 +1,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include "Object_base.h"
+#include "Object_base.hpp"
 
 class Object : public Object_base
 {

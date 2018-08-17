@@ -29,52 +29,46 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#ifndef MENU_STATE_H
-#define MENU_STATE_H
+#ifndef OBJECT_BASE_H
+#define OBJECT_BASE_H
 
-#include <iostream>
-
+#include "Resource_manager.hpp"
 #include "SFML/Graphics.hpp"
-#include <TGUI/TGUI.hpp>
-#include "State_base.h"
-#include "Animations/Function_animation.h"
-#include "Utility.h"
-#include "Objects/Object.h"
 
-class Game;
-class Menu_state : public State
-{ 
+// An Object_base is an abstract base class. 
+// It provides an interface to draw an object
+// Every drawable object needs to inherit after it. 
+class Object_base 
+{
   public:
-    explicit Menu_state(Game* game);
+    // Character_base is an abstract class, copying prevented 
+    Object_base(const Object_base& another) = delete;
+    void operator=(const Object_base& another) = delete;
+    
+    // draws an object to window 
+    void draw(sf::RenderWindow& window);
 
-    ~Menu_state();
-  private:
-    // void some_logic();
+    // set object position to the center 
+    void center_origin();
 
-    void input(float dt, float clocked_time);
-    void update(float dt, float clocked_time);
-    void draw();
-  private:
-    void set_up_gui();
+    // returns reference to sprite
+    sf::Sprite& get_sprite();
 
-    void switch_to_next_background();
-  private:
-    tgui::Gui m_gui;
+  protected:
+    // Character_base is an abstract class, copying prevented. Constructor is innaccessible outside the class 
+    Object_base(Resource_manager& resource_manager, std::string texture_name);
 
-    const float m_button_width;
-    const float m_button_height;
+    // set up is main function. It calls set_up_animations() and unique_set_up()
+    void set_up(Resource_manager& resource_manager);
 
-    Object m_logo;
-    Object m_background;
+    // set all of the animations in derived class  
+    virtual void set_up_animations() = 0;
 
-    Function_animation<>* m_main_animation;
-    int m_background_number;
+    // other set up's in derived class
+    virtual void unique_set_up(Resource_manager& resource_manager) = 0;
 
-    Function_animation<> m_ace_background_animation;
-    Function_animation<> m_katakuri_background_animation;
-    Function_animation<> m_strawhats_animation;
-    Function_animation<> m_luffy_gear_second_animation;
+  protected:
+    sf::Sprite m_sprite;
 };
 
-#endif // MENU_STATE_H
-
+#endif // OBJECT_BASE_H

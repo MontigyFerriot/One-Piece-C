@@ -29,11 +29,11 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "Game.h"
+#include "Game.hpp"
 
 #include <iostream>
-#include "States/State_base.h"
-#include "States/Menu_state.h"
+#include "States/State_base.hpp"
+#include "States/Menu_state.hpp"
 
 Game::Game()
   :m_resource_manager{},
@@ -42,21 +42,22 @@ Game::Game()
 {
   m_window.create(sf::VideoMode(m_win_width,m_win_height), "One Piece: C",sf::Style::Fullscreen); //initializing window 
   change_state(new Menu_state(this));
-
   m_window.setFramerateLimit(60); // set max. FPS to 60
 
   //m_arial.loadFromFile("fonts/arial.ttf");
-  m_frames_per_second.setFont(m_arial);
+  //m_frames_per_second.setFont(m_arial);
 }
 
 // main logic function. It runs main loop of the program.
 // manages time and states
 void Game::run_main_loop()
 {
+  std::cout << "LOL" << std::endl;
     sf::Clock mclock;
     sf::Clock infinite_clock;
     float delta_time = 0.0f;  //Set delta time
     sf::Time time_since_start; //Elapsed time
+  std::cout << "LOL" << std::endl;
     while(m_window.isOpen())
     {
       delta_time = mclock.restart().asSeconds();  //Set delta time

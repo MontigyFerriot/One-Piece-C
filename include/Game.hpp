@@ -29,45 +29,66 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#ifndef ZORO_H 
-#define ZORO_H
+#ifndef GAME_H
+#define GAME_H
 
+#include <vector>
+#include <memory>
 #include <SFML/Graphics.hpp>
-#include "Animations/Animation.h"
-#include "Resource_manager.h"
-#include "Character_base.h"
+#include "Resource_manager.hpp"
+#include "Music_player.hpp"
 
-class Zoro : public Character_base
+class State; // forward declaration needed to use state
+class Game
 {
-  public:
-    explicit Zoro(Resource_manager& resource_manager);
-
-    void standing(float current_time);
-    void walking_right(float current_time);
-    void walking_left(float current_time);
-
-    // Defining virtual void logic() from Object_base
-    void logic_first(float dt, float current_time);
+  public: 
+    Game();
     
-    // Defining virtual void logic() from Object_base
-    void logic_second(float dt, float current_time);
-  private:
-    // Defining virtual void set_up_animations() from Object_base
-    void set_up_animations();
+    // main logic function. It runs main loop of the program.
+    // manages time and states
+    void run_main_loop();
+
+    // changes current state
+    void change_state(State* state);
+
+    // return window's measure
+    int get_win_width() const;
+    int get_win_height() const;
+
+    // returns reference to resource_manager
+    Resource_manager& get_resource_manager();
     
-    // Defining virtual void unique_set_up() from Object_base
-    void unique_set_up(Resource_manager& resource_manager); 
-  
+    // returns reference to music_player
+    Music_player& get_music_player();
+
+    // returns reference to event 
+    sf::Event& get_event();
+
+    // returns reference to render_window
+    sf::RenderWindow& get_render_window();
   private:
-    sf::Texture m_zoro;
+    // handles all window events
+    void window_event();
 
-    Animation m_standing_right;
-    Animation m_standing_left;
-    Animation m_walking_left;
-    Animation m_walking_right;
-    //Animation m_basic_attack_left;
-    //Animation m_basic_attack_right;
+    // display number of frames per second. WIP
+    void display_fps(float current_time);  
 
+  private:
+    sf::RenderWindow m_window; // window of the game
+    static constexpr int m_win_width = 1366; // width of the window
+    static constexpr int m_win_height = 768; // height of the window
+
+    std::shared_ptr<State> m_state; // pointer to current state 
+
+    Resource_manager m_resource_manager; // default Resource_manager
+    Music_player m_music_player;
+
+    sf::Event m_event;
+
+    sf::Text m_frames_per_second; // sf::Text which shows current frames rate
+    sf::Font m_arial; // font used in the program 
+
+    float m_last_time; // holds time of last
 };
 
-#endif //ZORO_H
+#endif // GAME_H

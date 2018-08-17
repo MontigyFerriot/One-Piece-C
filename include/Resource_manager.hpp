@@ -35,14 +35,22 @@
 
 #include <iostream>
 #include <map>
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <memory>
+#include <algorithm>
 
 using music_ptr = std::shared_ptr<sf::Music>;
 
 class Resource_manager
 {
+  private:
+    using Texture = std::pair<std::string, sf::Texture>;
+    using Sound   = std::pair<std::string, sf::SoundBuffer>;
+    using Font    = std::pair<std::string, sf::Font>;
+    using Music   = std::pair<std::string, music_ptr>;
+    
   public:
     Resource_manager();
 
@@ -52,27 +60,47 @@ class Resource_manager
 
   private:
     // import resources to the manager. Requires resource's name without path.
-    void import_texture(const std::string& texture_name);
-    void import_sound(const std::string& sound_name);
-    void import_font(const std::string& font_name);
-    void import_music(const std::string& music_name);
+    void import_texture(const std::string& texture_name, std::size_t n);
+    void import_sound(const std::string& sound_name, std::size_t n);
+    void import_font(const std::string& font_name, std::size_t n);
+    void import_music(const std::string& music_name, std::size_t n);
 
     void load_textures();
     void load_sounds();
     void load_fonts();
     void load_musics();
 
+    template<typename Array>
+    typename Array::value_type::second_type& binary_search(Array& arr, const std::string& value)
+    {
+        std::size_t low = 0, high = arr.size(), middle;
+
+        while(low < high)
+        { 
+            middle = low + (high - low) / 2;
+
+            if(value < arr[middle].first)
+                high = middle;
+            else if(value > arr[middle].first)
+                low = middle + 1;
+            else
+                return arr[middle].second;
+        }
+
+        throw std::runtime_error{"binary_search(): Cannot find " + value};
+    }
+
+    static constexpr std::size_t m_textures_size = 11; 
+    static constexpr std::size_t m_sounds_size   = 1; 
+    static constexpr std::size_t m_fonts_size    = 1; 
+    static constexpr std::size_t m_music_size    = 3; 
   private:
-    std::map<std::string, sf::Texture> m_textures;
-
-    std::map<std::string, sf::SoundBuffer> m_sounds; 
-
-    std::map<std::string, sf::Font> m_fonts; 
-    
-    std::map<std::string, music_ptr> m_musics; 
+    std::array<Texture, m_textures_size> m_textures;
+    std::array<Sound, m_sounds_size>     m_sounds;
+    std::array<Font, m_fonts_size>       m_fonts;
+    std::array<Music, m_music_size>      m_musics;
 
     friend class Music_player;
 };
-
 
 #endif // RESOURCE_MANAGER_H
