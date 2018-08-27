@@ -38,51 +38,50 @@
 
 
 using Func = std::function<void(int&,int&)>;
-//typedef std::function<void(float&,float&)> Func;
 
 class Standard_function_animation
 {
-  public:
-    Standard_function_animation(int origin_x_coord,int origin_y_coord,int max_x_coord,int max_y_coord,
-        int width, int height,float time_to_next_frame,const Func& move_function);
-    
-    Standard_function_animation(const sf::Vector2i& origin_coordinates,const sf::Vector2i& max_coordinates,
-        const sf::Vector2i rectangle,float time_to_next_frame,const Func& move_function);
+    public:
+        Standard_function_animation(int origin_x_coord,int origin_y_coord,int max_x_coord,int max_y_coord,
+            int width, int height,float time_to_next_frame,const Func& move_function);
+        
+        Standard_function_animation(const sf::Vector2i& origin_coordinates,const sf::Vector2i& max_coordinates,
+            const sf::Vector2i rectangle,float time_to_next_frame,const Func& move_function);
 
-    Standard_function_animation(int origin_x_coord,int origin_y_coord,int max_x_coord,int max_y_coord,
-        int width, int height,float time_to_next_frame,const Func& move_function,const Func& rect_function);
-    
-    Standard_function_animation(const sf::Vector2i& origin_coordinates,const sf::Vector2i& max_coordinates,
-        const sf::Vector2i rectangle,float time_to_next_frame,const Func& move_function,const Func& rect_function);
+        Standard_function_animation(int origin_x_coord,int origin_y_coord,int max_x_coord,int max_y_coord,
+            int width, int height,float time_to_next_frame,const Func& move_function,const Func& rect_function);
+        
+        Standard_function_animation(const sf::Vector2i& origin_coordinates,const sf::Vector2i& max_coordinates,
+            const sf::Vector2i rectangle,float time_to_next_frame,const Func& move_function,const Func& rect_function);
 
-    sf::IntRect operator()(float current_time);
+        sf::IntRect operator()(float current_time);
 
-    float get_old_time() const { return m_old_time; }
-    void set_old_time(float f) { m_old_time = f; }
-    bool is_end() const { return m_is_end; }
-    void restart() { m_is_end = false; }
+        float get_old_time() const { return m_old_time; }
+        void set_old_time(float f) { m_old_time = f; }
+        bool is_end() const { return m_is_end; }
+        void restart() { m_is_end = false; }
 
-    float get_time_to_next_frame() const { return m_time_to_next_frame; }
-  private:
-    int m_current_x_coord;
-    int m_current_y_coord;
-    
-    int m_origin_x_coord;
-    int m_origin_y_coord;
-    
-    const int m_max_x_coord;
-    const int m_max_y_coord;
+        float get_time_to_next_frame() const { return m_time_to_next_frame; }
+    private:
+        int m_current_x_coord;
+        int m_current_y_coord;
+        
+        int m_origin_x_coord;
+        int m_origin_y_coord;
+        
+        const int m_max_x_coord;
+        const int m_max_y_coord;
 
-    bool m_is_end;
-    
-    int m_width;
-    int m_height;
-    
-    float m_time_to_next_frame;
-    float m_old_time;
+        bool m_is_end;
+        
+        int m_width;
+        int m_height;
+        
+        float m_time_to_next_frame;
+        float m_old_time;
 
-    Func m_move_function;
-    Func m_rectangle_function;
+        Func m_move_function;
+        Func m_rectangle_function;
 
 };
 

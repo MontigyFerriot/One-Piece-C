@@ -40,35 +40,35 @@
 // Every drawable object needs to inherit after it. 
 class Object_base 
 {
-  public:
-    // Character_base is an abstract class, copying prevented 
-    Object_base(const Object_base& another) = delete;
-    void operator=(const Object_base& another) = delete;
-    
-    // draws an object to window 
-    void draw(sf::RenderWindow& window);
+    public:
+        // Character_base is an abstract class, copying prevented 
+        Object_base(const Object_base& another) = delete;
+        void operator=(const Object_base& another) = delete;
+        
+        // draws an object to window 
+        void draw(sf::RenderWindow& window);
 
-    // set object position to the center 
-    void center_origin();
+        // set object position to the center 
+        void center_origin();
 
-    // returns reference to sprite
-    sf::Sprite& get_sprite();
+        // returns reference to sprite
+        sf::Sprite& get_sprite();
 
-  protected:
-    // Character_base is an abstract class, copying prevented. Constructor is innaccessible outside the class 
-    Object_base(Resource_manager& resource_manager, std::string texture_name);
+    protected:
+        // Character_base is an abstract class, copying prevented. Constructor is innaccessible outside the class 
+        Object_base(Resource_manager& resource_manager, std::string texture_name);
 
-    // set up is main function. It calls set_up_animations() and unique_set_up()
-    void set_up(Resource_manager& resource_manager);
+        // set up is main function. It calls set_up_animations() and unique_set_up()
+        void set_up(Resource_manager& resource_manager);
 
-    // set all of the animations in derived class  
-    virtual void set_up_animations() = 0;
+        // set all of the animations in derived class  
+        virtual void set_up_animations() = 0;
 
-    // other set up's in derived class
-    virtual void unique_set_up(Resource_manager& resource_manager) = 0;
+        // other set up's in derived class
+        virtual void unique_set_up(Resource_manager& resource_manager) = 0;
 
-  protected:
-    sf::Sprite m_sprite;
+    protected:
+        sf::Sprite m_sprite;
 };
 
 #endif // OBJECT_BASE_H

@@ -32,72 +32,72 @@
 #include "Music_player.hpp"
 
 Music_player::Music_player(Resource_manager& resource_manager)
-  	:m_resource_manager{resource_manager},
-   	m_current_music{0U},
-   	m_last_activity_time{0.0f}
+          :m_resource_manager{resource_manager},
+           m_current_music{0U},
+           m_last_activity_time{0.0f}
 {
 
 }
 
 void Music_player::play() noexcept
 {
-  	m_resource_manager.m_musics[m_current_music].second->play();
+          m_resource_manager.m_musics[m_current_music].second->play();
 }
 
 void Music_player::restart(float t) noexcept
 {
-  	if(t - m_last_activity_time < delay)
-    	return;
-  	m_last_activity_time = t;
-  	m_resource_manager.m_musics[m_current_music].second->setPlayingOffset(sf::Time{sf::seconds(0.0f)});
+          if(t - m_last_activity_time < delay)
+                return;
+          m_last_activity_time = t;
+          m_resource_manager.m_musics[m_current_music].second->setPlayingOffset(sf::Time{sf::seconds(0.0f)});
 }
 
 void Music_player::stop() noexcept
 {
-  	m_resource_manager.m_musics[m_current_music].second->stop();
+          m_resource_manager.m_musics[m_current_music].second->stop();
 }
 
 void Music_player::next(float t) noexcept
 {
-  	if(t - m_last_activity_time < delay or 
-      m_current_music == (m_resource_manager.m_musics.size() - 1))
-      	return;
+        if(t - m_last_activity_time < delay or 
+            m_current_music == (m_resource_manager.m_musics.size() - 1))
+                    return;
 
-  	m_last_activity_time = t;
-  	m_resource_manager.m_musics[m_current_music].second->stop();
-  	m_resource_manager.m_musics[m_current_music].second->setPlayingOffset(sf::Time{sf::seconds(0.0f)});
-  	++m_current_music;
-  	m_resource_manager.m_musics[m_current_music].second->play();
+        m_last_activity_time = t;
+        m_resource_manager.m_musics[m_current_music].second->stop();
+        m_resource_manager.m_musics[m_current_music].second->setPlayingOffset(sf::Time{sf::seconds(0.0f)});
+        ++m_current_music;
+        m_resource_manager.m_musics[m_current_music].second->play();
 }
 
 void Music_player::previous(float t) noexcept
 {
-  	if(t - m_last_activity_time < delay or m_current_music == 0U)
-      	return;
+          if(t - m_last_activity_time < delay or m_current_music == 0U)
+                  return;
 
-  	m_last_activity_time = t;
-  	m_resource_manager.m_musics[m_current_music].second->stop();
-  	m_resource_manager.m_musics[m_current_music].second->setPlayingOffset(sf::Time{sf::seconds(0.0f)});
-  	--m_current_music;
-  	m_resource_manager.m_musics[m_current_music].second->play();
+          m_last_activity_time = t;
+          m_resource_manager.m_musics[m_current_music].second->stop();
+          m_resource_manager.m_musics[m_current_music].second->setPlayingOffset(sf::Time{sf::seconds(0.0f)});
+          --m_current_music;
+          m_resource_manager.m_musics[m_current_music].second->play();
 }
 
 void Music_player::shuffle_play(float t) noexcept
 {
-  	if(t - m_last_activity_time < delay)
-    	return;
-  	m_last_activity_time = t;
+        if(t - m_last_activity_time < delay)
+                return;
+        m_last_activity_time = t;
 
-	std::size_t i; 
-    while((i = util::randomize(0,m_resource_manager.m_musics.size() - 1)) == m_current_music);
+        std::size_t i; 
+        while((i = util::randomize(0,m_resource_manager.m_musics.size() - 1)) == m_current_music);
 
-  	m_resource_manager.m_musics[m_current_music].second->stop();
-  	m_resource_manager.m_musics[m_current_music].second->setPlayingOffset(sf::Time{sf::seconds(0.0f)});
-  	m_current_music = i;
-	m_resource_manager.m_musics[m_current_music].second->play();
+        m_resource_manager.m_musics[m_current_music].second->stop();
+        m_resource_manager.m_musics[m_current_music].second->setPlayingOffset(sf::Time{sf::seconds(0.0f)});
+        m_current_music = i;
+        m_resource_manager.m_musics[m_current_music].second->play();
 }
 
 Music_player::~Music_player()
 {
-	m_resource_manager.m_musics[m_current_music].second->stop();
+        m_resource_manager.m_musics[m_current_music].second->stop();
 }

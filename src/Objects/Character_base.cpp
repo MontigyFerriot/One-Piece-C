@@ -32,9 +32,9 @@
 #include "Objects/Character_base.hpp"
 
 Character_base::Character_base(Resource_manager& resource_manager,
-        std::string texture_name,Direction direction,int health)
-    :Object_base{resource_manager,texture_name},
-     m_direction{direction},
-     m_health{health}
+            std::string texture_name,Direction direction,int health)
+        :Object_base{resource_manager,texture_name},
+        m_direction{direction},
+        m_health{health}
 {
 }

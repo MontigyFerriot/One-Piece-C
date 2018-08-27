@@ -40,28 +40,28 @@
 // enum which represent the direction of character 
 enum class Direction
 { 
-  Left,
-  Right
+        Left,
+        Right
 };
 
 class Character_base : public Object_base
 {
-  public:
-    // Character_base is an abstract class, copying prevented 
-    Character_base(const Character_base& another) = delete;
-    void operator=(const Character_base& another) = delete;
+    public:
+        // Character_base is an abstract class, copying prevented 
+        Character_base(const Character_base& another) = delete;
+        void operator=(const Character_base& another) = delete;
 
-    // These two function provides logic for first and second player.
-    // Each one of them use different set of keys, so they need different logics
-    virtual void logic_first(float dt, float current_time) = 0;
-    virtual void logic_second(float dt, float current_time) = 0;
-    
-  protected:
-    // Character_base is an abstract class, copying prevented. Constructor is innaccessible outside the class 
-    Character_base(Resource_manager& resource_manager,std::string texture_name,Direction direction, int health);
-  protected:
-    Direction m_direction; // represent direction of the class 
-    int m_health; // represent health of the class 
+        // These two function provides logic for first and second player.
+        // Each one of them use different set of keys, so they need different logics
+        virtual void logic_first(float dt, float current_time) = 0;
+        virtual void logic_second(float dt, float current_time) = 0;
+        
+    protected:
+        // Character_base is an abstract class, copying prevented. Constructor is innaccessible outside the class 
+        Character_base(Resource_manager& resource_manager,std::string texture_name,Direction direction, int health);
+    protected:
+        Direction m_direction; // represent direction of the class 
+        int m_health; // represent health of the class 
 };
 
 

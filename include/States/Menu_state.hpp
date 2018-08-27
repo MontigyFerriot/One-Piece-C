@@ -44,36 +44,35 @@
 class Game;
 class Menu_state : public State
 { 
-  public:
-    explicit Menu_state(Game* game);
+    public:
+        explicit Menu_state(Game* game);
 
-    ~Menu_state();
-  private:
-    // void some_logic();
+        ~Menu_state();
+    private:
+        // void some_logic();
 
-    void input(float dt, float clocked_time);
-    void update(float dt, float clocked_time);
-    void draw();
-  private:
-    void set_up_gui();
+        void input(float dt, float clocked_time);
+        void update(float dt, float clocked_time);
+        void draw();
+        void set_up_gui();
+        void switch_to_next_background();
 
-    void switch_to_next_background();
-  private:
-    tgui::Gui m_gui;
+    private:
+        tgui::Gui m_gui;
 
-    const float m_button_width;
-    const float m_button_height;
+        const float m_button_width;
+        const float m_button_height;
 
-    Object m_logo;
-    Object m_background;
+        Object m_logo;
+        Object m_background;
 
-    Function_animation<>* m_main_animation;
-    int m_background_number;
+        Function_animation<>* m_main_animation;
+        int m_background_number;
 
-    Function_animation<> m_ace_background_animation;
-    Function_animation<> m_katakuri_background_animation;
-    Function_animation<> m_strawhats_animation;
-    Function_animation<> m_luffy_gear_second_animation;
+        Function_animation<> m_ace_background_animation;
+        Function_animation<> m_katakuri_background_animation;
+        Function_animation<> m_strawhats_animation;
+        Function_animation<> m_luffy_gear_second_animation;
 };
 
 #endif // MENU_STATE_H

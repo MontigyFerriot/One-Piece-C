@@ -36,7 +36,7 @@
 
 namespace util 
 {
-    int randomize(int min,int max);
+        int randomize(int min,int max);
 } // util
 
 #endif // UTILITY_h

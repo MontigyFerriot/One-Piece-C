@@ -46,36 +46,36 @@
 
 class Luffy : public Character_base
 {
-  public:
-    explicit Luffy(Resource_manager& resource_manager);
+    public:
+        explicit Luffy(Resource_manager& resource_manager);
 
-    void standing(float current_time);
-    void shake_hands(float current_time);
-    void walking_right(float current_time);
-    void walking_left(float current_time);
+        void standing(float current_time);
+        void shake_hands(float current_time);
+        void walking_right(float current_time);
+        void walking_left(float current_time);
 
-    // Defining virtual void logic() from Object_base
-    void logic_first(float dt, float current_time);
-    
-    // Defining virtual void logic() from Object_base
-    void logic_second(float dt, float current_time);
-  private:
-    // Defining virtual void set_up_animations() from Object_base
-    void set_up_animations();
-    
-    // Defining virtual void unique_set_up() from Object_base
-    void unique_set_up(Resource_manager& resource_manager); 
-     
-  private:
-    sf::Texture m_luffy_left;
-    sf::Texture m_luffy_right;
+        // Defining virtual void logic() from Object_base
+        void logic_first(float dt, float current_time);
+        
+        // Defining virtual void logic() from Object_base
+        void logic_second(float dt, float current_time);
+    private:
+        // Defining virtual void set_up_animations() from Object_base
+        void set_up_animations();
+        
+        // Defining virtual void unique_set_up() from Object_base
+        void unique_set_up(Resource_manager& resource_manager); 
+        
+    private:
+        sf::Texture m_luffy_left;
+        sf::Texture m_luffy_right;
 
-    Animation m_standing;
-    Animation m_shaking_hands;
-    Animation m_walking_left;
-    Animation m_walking_right;
-    //Animation m_basic_attack_left;
-    //Animation m_basic_attack_right;
+        Animation m_standing;
+        Animation m_shaking_hands;
+        Animation m_walking_left;
+        Animation m_walking_right;
+        //Animation m_basic_attack_left;
+        //Animation m_basic_attack_right;
 };
 
 #endif //LUFFY_H

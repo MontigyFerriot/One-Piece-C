@@ -38,43 +38,43 @@
 template<typename Fct = Standard_function_animation> 
 class Function_animation
 {
-  public:   
-    // Function_animation() - constructor
-    // and initialize m_is_animated_now to false. 
-    explicit Function_animation(const Fct& function)
-        :m_function{function},
-         m_infinite_animation{false},
-         m_is_animated_now{false}
-    {
-    }
+    public:   
+        // Function_animation() - constructor
+        // and initialize m_is_animated_now to false. 
+        explicit Function_animation(const Fct& function)
+                :m_function{function},
+                m_infinite_animation{false},
+                m_is_animated_now{false}
+        {
+        }
 
-    // void animate(sf::Sprite& sprite,float current_time); is main logic member function. It animates sprite
-    // by setting frames continuously in time with a small gap of time beetween each frame.
-    // It also checks if Animation is currently used (is being animated), if not it sets m_is_animated_now to false. 
-    void animate(sf::Sprite& sprite,float current_time)
-    {
-            if(!m_infinite_animation) {}
-            else if(m_function.get_time_to_next_frame() > (current_time - m_function.get_old_time() ) + 0.5f)
-            { 
-                m_is_animated_now = false;
-            }
-            if(!m_is_animated_now)
-            {
-                m_function.set_old_time(current_time);
-                m_is_animated_now = true;
-            }
-        sprite.setTextureRect(m_function(current_time));
-    }
+        // void animate(sf::Sprite& sprite,float current_time); is main logic member function. It animates sprite
+        // by setting frames continuously in time with a small gap of time beetween each frame.
+        // It also checks if Animation is currently used (is being animated), if not it sets m_is_animated_now to false. 
+        void animate(sf::Sprite& sprite,float current_time)
+        {
+                if(!m_infinite_animation) {}
+                else if(m_function.get_time_to_next_frame() > (current_time - m_function.get_old_time() ) + 0.5f)
+                { 
+                        m_is_animated_now = false;
+                }
+                if(!m_is_animated_now)
+                {
+                        m_function.set_old_time(current_time);
+                        m_is_animated_now = true;
+                }
+                sprite.setTextureRect(m_function(current_time));
+        }
 
-    bool is_end() const { return m_function.is_end(); }
-    void restart() { m_function.restart(); }
-    void set_infinite_animation(bool b) { m_infinite_animation = b; }
-  private:
-    // main functor which does animation for us.
-    Fct m_function;
-    // indicates if Animation is currently used. By default it is initialied to false
-    bool m_infinite_animation;
-    bool m_is_animated_now;
+        bool is_end() const { return m_function.is_end(); }
+        void restart() { m_function.restart(); }
+        void set_infinite_animation(bool b) { m_infinite_animation = b; }
+    private:
+        // main functor which does animation for us.
+        Fct m_function;
+        // indicates if Animation is currently used. By default it is initialied to false
+        bool m_infinite_animation;
+        bool m_is_animated_now;
 };
 
 #endif // FUNCTION_ANIMATION_H

@@ -35,8 +35,8 @@
 // Animation() - default constructor. Calls default base class constuctor Animation_Effect{} 
 // and initialize m_is_animated_now to false. 
 Animation::Animation()
-    :Animation_effect{},
-     m_is_animated_now{false}
+        :Animation_effect{},
+         m_is_animated_now{false}
 {
 }
 
@@ -46,29 +46,29 @@ Animation::Animation()
 // It also checks if Animation is currently used (is being animated), if not it sets m_is_animated_now to false. 
 void Animation::animate(sf::Sprite& sprite, float current_time)
 {
-    if(m_frames.size() < 1) 
-    {
-        std::cerr << "Cannot animate animation!" << std::endl;
-        return;
-    }
-    if(longest_frame_gap() > ( current_time - m_old_time ) + 0.5f)
-    {
-        m_is_animated_now = false;
-    }
-    if(!m_is_animated_now)
-    {
-        m_old_time = current_time;
-        m_is_animated_now = true;
-    }
-    switch_to_next_frame(current_time);
-    sprite.setTextureRect(m_frames[m_current_frame].m_frame);
+        if(m_frames.size() < 1) 
+        {
+                std::cerr << "Cannot animate animation!" << std::endl;
+                return;
+        }
+        if(longest_frame_gap() > ( current_time - m_old_time ) + 0.5f)
+        {
+                m_is_animated_now = false;
+        }
+        if(!m_is_animated_now)
+        {
+                m_old_time = current_time;
+                m_is_animated_now = true;
+        }
+        switch_to_next_frame(current_time);
+        sprite.setTextureRect(m_frames[m_current_frame].m_frame);
 }
 
 // float longest_frame_gap(); - it returns biggest time gap beetween frames. 
 // return: float of unsigned value 
 float Animation::longest_frame_gap()
 {
-    auto p = std::max_element(m_frames.begin(),m_frames.end(),
-        [](const Frame& f1,const Frame& f2) { return f1.m_time_to_next_frame < f2.m_time_to_next_frame; });
-    return p->m_time_to_next_frame;
+        auto p = std::max_element(m_frames.begin(),m_frames.end(),
+            [](const Frame& f1,const Frame& f2) { return f1.m_time_to_next_frame < f2.m_time_to_next_frame; });
+        return p->m_time_to_next_frame;
 }

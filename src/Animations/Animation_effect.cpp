@@ -33,8 +33,8 @@
 
 //default constructor. Initializes m_current_frame and m_old_time both to 0
 Animation_effect::Animation_effect()
-    :m_current_frame{0},
-     m_old_time{0}
+        :m_current_frame{0},
+         m_old_time{0}
 {
 }
 
@@ -42,34 +42,34 @@ Animation_effect::Animation_effect()
 // creates an object of Frame type and pushes it back to vector m_frames 
 void Animation_effect::add_frame(const sf::IntRect& rect, float t)
 {
-    //create and intialize object
-    Frame frame;
-    frame.m_frame = rect;
-    frame.m_time_to_next_frame = t;
+        //create and intialize object
+        Frame frame;
+        frame.m_frame = rect;
+        frame.m_time_to_next_frame = t;
 
-    //push it back to vector
-    m_frames.emplace_back(frame);
+        //push it back to vector
+        m_frames.emplace_back(frame);
 }
 
 // switch_to next_frame() is main logic member of this class.
 // It changes frame to the next one and if it hits end of the vector, it wraps to the beginning 
 void Animation_effect::switch_to_next_frame(float current_time)
 {    
-    if(current_time >= m_old_time + m_frames[m_current_frame].m_time_to_next_frame) // if enough time has passed
-    {
-        if(m_current_frame == m_frames.size() - 1) // if animation is on its last frame 
+        if(current_time >= m_old_time + m_frames[m_current_frame].m_time_to_next_frame) // if enough time has passed
         {
-            m_current_frame = 0; // it starts from beginning another time
+                if(m_current_frame == m_frames.size() - 1) // if animation is on its last frame 
+                {
+                        m_current_frame = 0; // it starts from beginning another time
+                }
+                else
+                {
+                        ++m_current_frame; // if not it proceed futher 
+                }
+                m_old_time = current_time; 
         }
-        else
-        {
-            ++m_current_frame; // if not it proceed futher 
-        }
-        m_old_time = current_time; 
-    }
 }
 
 int Animation_effect::get_current_frame() const
 { 
-    return m_current_frame; 
+        return m_current_frame; 
 }

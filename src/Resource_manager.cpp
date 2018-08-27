@@ -41,28 +41,28 @@
 
 Resource_manager::Resource_manager()
 {
-    // loading all resources:
-    load_textures();
-    //load_sounds(); 
-    //load_fonts();
-    load_musics();
+        // loading all resources:
+        load_textures();
+        //load_sounds(); 
+        //load_fonts();
+        load_musics();
 }
 
 // adds all required textures to the program
 void Resource_manager::load_textures()
 {
-    std::size_t n = 0;
-    import_texture("ace_background.png", n++);
-    import_texture("background.png", n++);
-    import_texture("ice_texture.png", n++);
-    import_texture("katakuri_background.png", n++);
-    import_texture("luffy_gear_second.png", n++);
-    import_texture("luffy_left.png", n++);
-    import_texture("luffy_right.png", n++);
-    import_texture("marineford_bay.png", n++);
-    import_texture("one_piece_logo.png", n++);
-    import_texture("strawhats1.png", n++);
-    import_texture("zoro.png", n++);
+        std::size_t n = 0;
+        import_texture("ace_background.png", n++);
+        import_texture("background.png", n++);
+        import_texture("ice_texture.png", n++);
+        import_texture("katakuri_background.png", n++);
+        import_texture("luffy_gear_second.png", n++);
+        import_texture("luffy_left.png", n++);
+        import_texture("luffy_right.png", n++);
+        import_texture("marineford_bay.png", n++);
+        import_texture("one_piece_logo.png", n++);
+        import_texture("strawhats1.png", n++);
+        import_texture("zoro.png", n++);
 }
 
 // adds all required sounds to the program
@@ -78,68 +78,68 @@ void Resource_manager::load_fonts()
 // adds all required musics to the program
 void Resource_manager::load_musics()
 {
-    std::size_t n = 0;
-    import_music("music_overtaken.ogg", n++);
-    import_music("music_the_very_strongest.ogg", n++);
-    import_music("music_we_are.ogg", n++);
+        std::size_t n = 0;
+        import_music("music_overtaken.ogg", n++);
+        import_music("music_the_very_strongest.ogg", n++);
+        import_music("music_we_are.ogg", n++);
 }
 
 sf::Texture& Resource_manager::get_texture(const std::string& texture_name)
 {
-    return binary_search(m_textures, texture_name);
+        return binary_search(m_textures, texture_name);
 }
 
 sf::SoundBuffer& Resource_manager::get_sound(const std::string& sound_name)
 {
-    return binary_search(m_sounds, sound_name);
+        return binary_search(m_sounds, sound_name);
 }
 
 sf::Font& Resource_manager::get_font(const std::string& font_name)
 {
-    return binary_search(m_fonts, font_name);
+        return binary_search(m_fonts, font_name);
 }
 
 void Resource_manager::import_texture(const std::string& texture_name, std::size_t n)
 {
-    sf::Texture texture; 
-    if(!texture.loadFromFile(("../img/" + texture_name)))
-    { 
-        throw std::runtime_error("Cannot load texture: " + texture_name); 
-    }
-    else
-        m_textures[n] = std::make_pair(texture_name, texture);
+        sf::Texture texture; 
+        if(!texture.loadFromFile(("../img/" + texture_name)))
+        { 
+                throw std::runtime_error("Cannot load texture: " + texture_name); 
+        }
+        else
+                m_textures[n] = std::make_pair(texture_name, texture);
 }
 
 void Resource_manager::import_sound(const std::string& sound_name, std::size_t n)
 {
-    //Something is wrong here
-    sf::SoundBuffer sound; 
-    if(!sound.loadFromFile(("../sfx/" + sound_name)))
-    { 
-        throw std::runtime_error("Cannot load sound: " + sound_name); 
-    }
-    else
-        m_sounds[n] = std::make_pair(sound_name, sound);
+        //Something is wrong here
+        sf::SoundBuffer sound; 
+        if(!sound.loadFromFile(("../sfx/" + sound_name)))
+        { 
+                throw std::runtime_error("Cannot load sound: " + sound_name); 
+        }
+        else
+                m_sounds[n] = std::make_pair(sound_name, sound);
 }
 
 void Resource_manager::import_font(const std::string& font_name, std::size_t n)
 {
-    sf::Font font; 
-    if(!font.loadFromFile(("../fonts/" + font_name)))
-    { 
-        throw std::runtime_error("Cannot load font: " + font_name); 
-    }
-    else
-        m_fonts[n] = std::make_pair(font_name, font);
+        sf::Font font; 
+        if(!font.loadFromFile(("../fonts/" + font_name)))
+        { 
+                throw std::runtime_error("Cannot load font: " + font_name); 
+        }
+        else
+                m_fonts[n] = std::make_pair(font_name, font);
 }
 
 void Resource_manager::import_music(const std::string& music_name, std::size_t n)
 {
-    music_ptr music = std::make_shared<sf::Music>(); 
-    if(!music->openFromFile(("../sfx/" + music_name)))
-    { 
-        throw std::runtime_error("Cannot load music: " + music_name); 
-    }
-    else
-        m_musics[n] = std::make_pair(music_name, music);
+        music_ptr music = std::make_shared<sf::Music>(); 
+        if(!music->openFromFile(("../sfx/" + music_name)))
+        { 
+                throw std::runtime_error("Cannot load music: " + music_name); 
+        }
+        else
+                m_musics[n] = std::make_pair(music_name, music);
 }

@@ -40,41 +40,38 @@
 // Frame is pure data structure. 
 struct Frame
 {
-    sf::IntRect m_frame;
-    float m_time_to_next_frame;
+        sf::IntRect m_frame;
+        float m_time_to_next_frame;
 };
 
 class Animation_effect
 {
-  public:
-    // creates an object of Frame type and pushes it back to vector m_frames 
-    void add_frame(const sf::IntRect& rect, float t);
+    public:
+        void add_frame(const sf::IntRect& rect, float t);
 
-    template<typename... Ts>
-    void add_frames(Ts&&... ts)
-    {
-      add_frame(std::forward<Ts>(ts)...);
-    }
+        template<typename... Ts>
+        void add_frames(Ts&&... ts)
+        {
+                add_frame(std::forward<Ts>(ts)...);
+        }
 
-    // switch_to next_frame() is main logic member of this class.
-    // It changes frame to the next one and if it hits end of the vector, it wraps to the beginning 
-    void switch_to_next_frame(float current_time);
+        // switch_to next_frame() is main logic member of this class.
+        // It changes frame to the next one and if it hits end of the vector, it wraps to the beginning 
+        void switch_to_next_frame(float current_time);
 
-    // returns current frame 
-    int get_current_frame() const;
-    
-    std::vector<Frame>& get_frames() { return m_frames; }
-  protected:
-    //default constructor. Initializes m_current_frame and m_old_time both to 0
-    Animation_effect();
+        // returns current frame 
+        int get_current_frame() const;
+        
+        std::vector<Frame>& get_frames() { return m_frames; }
+    protected:
+        // Initializes m_current_frame and m_old_time both to 0
+        Animation_effect();
 
-    // holds all frames 
-    std::vector<Frame> m_frames;
+        std::vector<Frame> m_frames;
 
-    // number of current frame
-    unsigned int m_current_frame;
+        unsigned int m_current_frame;
 
-    // time from last animation 
-    float m_old_time;
+        // time from last animation 
+        float m_old_time;
 };
 #endif // ANIMATION_EFFECT_H

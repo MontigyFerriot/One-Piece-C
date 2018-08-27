@@ -34,17 +34,17 @@
 int main()
 try
 {
-  Game game; // core object
-  game.run_main_loop();
-  return 0;
+        Game game; // core object
+        game.run_main_loop();
+        return 0;
 }
 catch(std::exception& e)
 {
-  std::cerr << "Exception: " << e.what() << "." << std::endl;
-  return -1;
+        std::cerr << "Exception: " << e.what() << "." << std::endl;
+        return -1;
 } 
 catch(...)
 {
-  std::cerr << "Unknown exception." << std::endl;
-  return -1;
+        std::cerr << "Unknown exception." << std::endl;
+        return -1;
 }

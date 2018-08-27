@@ -43,22 +43,22 @@
 class Game;
 class Play_state : public State
 {
-  public:
-    //Play_state() = delete;
-    explicit Play_state(Game* game);
+    public:
+        //Play_state() = delete;
+        explicit Play_state(Game* game);
 
-    // Don't forget these three are pure virtuals
-    void input(float dt, float clocked_time);
-    void update(float dt, float clocked_time);
-    void draw();
+        // Don't forget these three are pure virtuals
+        void input(float dt, float clocked_time);
+        void update(float dt, float clocked_time);
+        void draw();
     
-  private:
-    Object m_background;
+    private:
+        Object m_background;
 
-    std::unique_ptr<Character_base> player_first; 
-    std::unique_ptr<Character_base> player_second; 
+        std::unique_ptr<Character_base> player_first; 
+        std::unique_ptr<Character_base> player_second; 
 
-    static constexpr float m_floor = 300.f;
+        static constexpr float m_floor = 300.f;
 };
 
 #endif // PLAY_STATE_H

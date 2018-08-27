@@ -41,54 +41,54 @@
 class State; // forward declaration needed to use state
 class Game
 {
-  public: 
-    Game();
-    
-    // main logic function. It runs main loop of the program.
-    // manages time and states
-    void run_main_loop();
+    public: 
+        Game();
+        
+        // main logic function. It runs main loop of the program.
+        // manages time and states
+        void run_main_loop();
 
-    // changes current state
-    void change_state(State* state);
+        // changes current state
+        void change_state(State* state);
 
-    // return window's measure
-    int get_win_width() const;
-    int get_win_height() const;
+        // return window's measure
+        int get_win_width() const;
+        int get_win_height() const;
 
-    // returns reference to resource_manager
-    Resource_manager& get_resource_manager();
-    
-    // returns reference to music_player
-    Music_player& get_music_player();
+        // returns reference to resource_manager
+        Resource_manager& get_resource_manager();
+        
+        // returns reference to music_player
+        Music_player& get_music_player();
 
-    // returns reference to event 
-    sf::Event& get_event();
+        // returns reference to event 
+        sf::Event& get_event();
 
-    // returns reference to render_window
-    sf::RenderWindow& get_render_window();
-  private:
-    // handles all window events
-    void window_event();
+        // returns reference to render_window
+        sf::RenderWindow& get_render_window();
+    private:
+        // handles all window events
+        void window_event();
 
-    // display number of frames per second. WIP
-    void display_fps(float current_time);  
+        // display number of frames per second. WIP
+        void display_fps(float current_time);  
 
-  private:
-    sf::RenderWindow m_window; // window of the game
-    static constexpr int m_win_width = 1366; // width of the window
-    static constexpr int m_win_height = 768; // height of the window
+    private:
+        sf::RenderWindow m_window; // window of the game
+        static constexpr int m_win_width = 1366; // width of the window
+        static constexpr int m_win_height = 768; // height of the window
 
-    std::shared_ptr<State> m_state; // pointer to current state 
+        std::shared_ptr<State> m_state; // pointer to current state 
 
-    Resource_manager m_resource_manager; // default Resource_manager
-    Music_player m_music_player;
+        Resource_manager m_resource_manager; // default Resource_manager
+        Music_player m_music_player;
 
-    sf::Event m_event;
+        sf::Event m_event;
 
-    sf::Text m_frames_per_second; // sf::Text which shows current frames rate
-    sf::Font m_arial; // font used in the program 
+        sf::Text m_frames_per_second; // sf::Text which shows current frames rate
+        sf::Font m_arial; // font used in the program 
 
-    float m_last_time; // holds time of last
+        float m_last_time; // holds time of last
 };
 
 #endif // GAME_H
