@@ -1,0 +1,23 @@
+{
+        "textures": [
+                "ace_background.png", 
+                "background.png",
+                "ice_texture.png",
+                "katakuri_background.png",
+                "luffy_gear_second.png",
+                "luffy_left.png",
+                "luffy_right.png",
+                "marineford_bay.png",
+                "one_piece_logo.png",
+                "strawhats1.png",
+                "zoro.png"
+        ],
+
+        "fonts": [],
+        "sounds": [],
+        "music": [
+                "music_overtaken.ogg",
+                "music_the_very_strongest.ogg", 
+                "music_we_are.ogg"
+        ]
+}

@@ -76,4 +76,3 @@ class Menu_state : public State
 };
 
 #endif // MENU_STATE_H
-

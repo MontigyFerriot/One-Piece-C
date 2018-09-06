@@ -39,3 +39,29 @@ int util::randomize(int min,int max)
     
         return dis(gen);
 }
+
+void util::parse_json_file(std::string& json_buffer, const std::string& file_name)
+{
+        std::ifstream ist{file_name};
+        std::string s;
+        std::unique_ptr<std::string> b = std::make_unique<std::string>();
+
+        if(!ist)
+                throw std::runtime_error{"Cannot open the file"};
+
+        while(true)
+        {
+                ist >> s; 
+
+                if(ist) 
+                        json_buffer += s;
+
+                if(ist.eof())
+                        break;
+                
+                if(ist.fail())  
+
+                if(ist.bad())
+                        ist.clear();
+        }
+}

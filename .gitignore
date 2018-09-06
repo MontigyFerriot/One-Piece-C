@@ -1,5 +1,8 @@
 # main directories.
 /bin
 
+# rapidjson library
+/include/rapidjson
+
 # vscode configuration stuff.
 .vscode/

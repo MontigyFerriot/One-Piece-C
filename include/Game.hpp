@@ -43,7 +43,7 @@ class Game
 {
     public: 
         Game();
-        
+                
         // main logic function. It runs main loop of the program.
         // manages time and states
         void run_main_loop();

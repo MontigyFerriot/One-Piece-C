@@ -45,7 +45,7 @@ Luffy::Luffy(Resource_manager& resource_manager)
         set_up(resource_manager);
 
         m_sprite.setTextureRect(m_shaking_hands.get_frames()[0].m_frame);
-        m_sprite.setPosition(50.0f,130.0f);
+        m_sprite.setPosition(50.0f,500.0f);
 
         m_sprite.setScale(3.0f,3.0f);
 }
@@ -117,7 +117,7 @@ void Luffy::walking_right(float current_time)
                 m_direction = Direction::Right;
                 m_sprite.setTexture(m_luffy_right);
         }
-        m_sprite.move(sf::Vector2f{1.0f,0.0f});
+        m_sprite.move(sf::Vector2f{10.0f,0.0f});
         m_walking_right.animate(m_sprite, current_time);
 }
 
@@ -128,7 +128,7 @@ void Luffy::walking_left(float current_time)
                 m_direction = Direction::Left;
                 m_sprite.setTexture(m_luffy_left);
         }
-        m_sprite.move(sf::Vector2f{-1.0f,0.0f});
+        m_sprite.move(sf::Vector2f{-10.0f,0.0f});
         m_walking_left.animate(m_sprite, current_time);
 }
 

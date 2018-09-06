@@ -38,50 +38,46 @@
 ***********************************************************************/
 
 #include "Resource_manager.hpp"
+#include "Utility.hpp"
+#include "rapidjson/document.h"
+
+namespace rj = rapidjson;
 
 Resource_manager::Resource_manager()
 {
-        // loading all resources:
-        load_textures();
-        //load_sounds(); 
-        //load_fonts();
-        load_musics();
-}
+        std::string json;
+        util::parse_json_file(json, "../resources.json");
 
-// adds all required textures to the program
-void Resource_manager::load_textures()
-{
-        std::size_t n = 0;
-        import_texture("ace_background.png", n++);
-        import_texture("background.png", n++);
-        import_texture("ice_texture.png", n++);
-        import_texture("katakuri_background.png", n++);
-        import_texture("luffy_gear_second.png", n++);
-        import_texture("luffy_left.png", n++);
-        import_texture("luffy_right.png", n++);
-        import_texture("marineford_bay.png", n++);
-        import_texture("one_piece_logo.png", n++);
-        import_texture("strawhats1.png", n++);
-        import_texture("zoro.png", n++);
-}
+        rj::Document doc;
+        doc.Parse(json.c_str());        
 
-// adds all required sounds to the program
-void Resource_manager::load_sounds()
-{
-}
+        std::size_t n;
+        rj::SizeType i; 
 
-// adds all required fonts to the program
-void Resource_manager::load_fonts()
-{
-}
+        // parse textures 
+        const rj::Value* a = &doc["textures"];
+        assert(a->IsArray());
+        for (i = 0, n = 0; i < a->Size(); ++i, n++) 
+                import_texture((*a)[i].GetString(), n);
+        
+        // parse fonts
+        a = &doc["fonts"];
+        assert(a->IsArray());
+        for (i = 0, n = 0; i < a->Size(); ++i, n++) 
+                import_font((*a)[i].GetString(), n); 
+        
+        // parse sounds
+        a = &doc["sounds"];
+        assert(a->IsArray());
+        for (i = 0, n = 0; i < a->Size(); ++i, n++) 
+                import_sound((*a)[i].GetString(), n); 
 
-// adds all required musics to the program
-void Resource_manager::load_musics()
-{
-        std::size_t n = 0;
-        import_music("music_overtaken.ogg", n++);
-        import_music("music_the_very_strongest.ogg", n++);
-        import_music("music_we_are.ogg", n++);
+        // parse music
+        a = &doc["music"];
+        assert(a->IsArray());
+        for (i = 0, n = 0; i < a->Size(); ++i, n++) 
+                import_music((*a)[i].GetString(), n);
+
 }
 
 sf::Texture& Resource_manager::get_texture(const std::string& texture_name)
@@ -141,5 +137,5 @@ void Resource_manager::import_music(const std::string& music_name, std::size_t n
                 throw std::runtime_error("Cannot load music: " + music_name); 
         }
         else
-                m_musics[n] = std::make_pair(music_name, music);
+                m_music[n] = std::make_pair(music_name, music);
 }

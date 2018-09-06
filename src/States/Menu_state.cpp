@@ -47,7 +47,7 @@ Menu_state::Menu_state(Game* game)
             game->get_win_height(),0.05f,[]( int& x, int& y) { x+=1; }}},
          m_katakuri_background_animation{Standard_function_animation{0,0,1,1400,game->get_win_width(),
             game->get_win_height(),0.04f,[]( int& x, int& y) { y+=1; }}},
-         m_strawhats_animation{Standard_function_animation{0,0,200,200,game->get_win_width(),
+         m_strawhats_animation{Standard_function_animation{0,0,200,1050,game->get_win_width(),
             game->get_win_height(),0.05f,[]( int& x, int& y) { x+=1; y+=1; }}},
          m_luffy_gear_second_animation{Standard_function_animation{0,0,1,315,game->get_win_width(),
             game->get_win_height(),0.05f,[]( int& x, int& y) { y+=1; }}}

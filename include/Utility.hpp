@@ -33,10 +33,13 @@
 #define UTILITY_h
 
 #include <random>
+#include <fstream>
+#include <memory>
 
 namespace util 
 {
         int randomize(int min,int max);
+        void parse_json_file(std::string& json_buffer, const std::string& file_name);
 } // util
 
 #endif // UTILITY_h

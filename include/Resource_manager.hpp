@@ -65,12 +65,6 @@ class Resource_manager
         void import_font(const std::string& font_name, std::size_t n);
         void import_music(const std::string& music_name, std::size_t n);
 
-        // functions consisting of set of imports. 
-        void load_textures();
-        void load_sounds();
-        void load_fonts();
-        void load_musics();
-
         // Generic binary search implementation from K&R book. Works only with resource containers in this resource_manager,    
         // in that way it is encapsulated as private member function.
         template<typename Array>
@@ -102,7 +96,7 @@ class Resource_manager
         std::array<Texture, m_textures_size> m_textures;
         std::array<Sound, m_sounds_size>     m_sounds;
         std::array<Font, m_fonts_size>       m_fonts;
-        std::array<Music, m_music_size>      m_musics;
+        std::array<Music, m_music_size>      m_music;
 
         friend class Music_player;
 };
