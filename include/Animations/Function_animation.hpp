@@ -29,52 +29,62 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#ifndef FUNCTION_ANIMATION_H
-#define FUNCTION_ANIMATION_H
+#ifndef STANDARD_FUNCTION_ANIMATION_H
+#define STANDARD_FUNCTION_ANIMATION_H
 
+#include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Standard_function_animation.hpp"
+#include <functional>
+#include "Animation_base.hpp"
 
-template<typename Fct = Standard_function_animation> 
-class Function_animation
-{
-    public:   
-        // Function_animation() - constructor
-        // and initialize m_is_animated_now to false. 
-        explicit Function_animation(const Fct& function)
-                :m_function{function},
-                m_infinite_animation{false},
-                m_is_animated_now{false}
+using Func = std::function<void(int&,int&)>;
+
+class Function_animation : public Animation_base
+{ 
+    public:
+        Function_animation(int origin_x_coord,int origin_y_coord,int max_x_coord,int max_y_coord,
+            int width, int height, float time_to_next_frame, const Func& move_function);
+        
+        Function_animation(const sf::Vector2i& origin_coordinates,const sf::Vector2i& max_coordinates,
+            const sf::Vector2i rectangle,float time_to_next_frame,const Func& move_function);
+
+        Function_animation(int origin_x_coord,int origin_y_coord,int max_x_coord,int max_y_coord,
+            int width, int height,float time_to_next_frame,const Func& move_function,const Func& rect_function);
+        
+        Function_animation(const sf::Vector2i& origin_coordinates,const sf::Vector2i& max_coordinates,
+            const sf::Vector2i rectangle,float time_to_next_frame,const Func& move_function,const Func& rect_function);
+
+        float time_of_animation() const;
+        float time_break();
+
+        void do_animation(sf::Sprite& sprite);
+
+        bool is_end()
         {
+                return m_is_end;
         }
 
-        // void animate(sf::Sprite& sprite,float current_time); is main logic member function. It animates sprite
-        // by setting frames continuously in time with a small gap of time beetween each frame.
-        // It also checks if Animation is currently used (is being animated), if not it sets m_is_animated_now to false. 
-        void animate(sf::Sprite& sprite,float current_time)
-        {
-                if(!m_infinite_animation) {}
-                else if(m_function.get_time_to_next_frame() > (current_time - m_function.get_old_time() ) + 0.5f)
-                { 
-                        m_is_animated_now = false;
-                }
-                if(!m_is_animated_now)
-                {
-                        m_function.set_old_time(current_time);
-                        m_is_animated_now = true;
-                }
-                sprite.setTextureRect(m_function(current_time));
-        }
+        void restart();
 
-        bool is_end() const { return m_function.is_end(); }
-        void restart() { m_function.restart(); }
-        void set_infinite_animation(bool b) { m_infinite_animation = b; }
     private:
-        // main functor which does animation for us.
-        Fct m_function;
-        // indicates if Animation is currently used. By default it is initialied to false
-        bool m_infinite_animation;
-        bool m_is_animated_now;
+        int m_current_x_coord;
+        int m_current_y_coord;
+        
+        int m_origin_x_coord;
+        int m_origin_y_coord;
+        
+        const int m_max_x_coord;
+        const int m_max_y_coord;
+
+        float m_time_to_next_frame;
+
+        bool m_is_end;
+        
+        int m_width;
+        int m_height;
+        
+        Func m_move_function;
+        Func m_rectangle_function;
 };
 
-#endif // FUNCTION_ANIMATION_H
+#endif // STANDARD_FUNCTION_ANIMATION_H

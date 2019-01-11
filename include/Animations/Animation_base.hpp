@@ -29,35 +29,13 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#ifndef ANIMATION_H
-#define ANIMATION_H
+#pragma once
 
-#include "SFML/Graphics.hpp"
-#include "Animation_effect.hpp"
-#include <iostream>
-#include <algorithm>
-
-class Animation : public Animation_effect
+class Animation_base 
 {
-    public:
-        // Animation() - default constructor. Calls default base class constuctor Animation_Effect{}
-        // and initialize m_is_animated_now to false.
-        Animation();
+        public:
+        Animation_base() = default;
 
-        // void animate(sf::Sprite& sprite,float current_time); is main logic member function. It animates sprite
-        // by setting frames continuously in time with a small gap of time beetween each frame.
-        // It also checks if Animation is currently used (is being animated), if not it sets m_is_animated_now to false.
-        void animate(sf::Sprite& sprite,float current_time);
-
-    public:
-        // float longest_frame_gap(); - it returns biggest time gap beetween frames.
-        // return: float of unsigned value
-        float longest_frame_gap();
-
-    private:
-        // indicates if Animation is currently used. By default it is initialied to false
-        bool m_is_animated_now;
+        virtual float time_of_animation() const = 0;
+        virtual float time_break() = 0; 
 };
-
-
-#endif // ANIMATION_H

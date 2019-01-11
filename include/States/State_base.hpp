@@ -48,14 +48,10 @@ class State
         virtual void update(float dt, float clocked_time) = 0;
         virtual void draw() = 0;
 
-        // State is an abstract class. User can't create an instance of it.
-        // Copying is prevented.
         State(const State& another) = delete;
         State() = delete;
         void operator=(const State& another) = delete;
     protected:
-        // State is an abstract class. User can't create an instance of it.
-        // Constructors are defined only for inheriting purposes.
         explicit State(Game* game); 
     protected:
         Game* m_game;

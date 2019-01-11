@@ -1,13 +1,13 @@
 /**********************************************************************************************************************************
-* Copyright (c) 2017-2018 Maciej Falkowski  
-* Standard Header. 
+* Copyright (c) 2017-2018 Maciej Falkowski
+* Standard Header.
 *
-* This project is One Piece: Gigant Battle! 2 New World almost copy. 
-* I do not take any advantages of this project and resources taken from OP: GB! 2 are for learning purposes. 
+* This project is One Piece: Gigant Battle! 2 New World almost copy.
+* I do not take any advantages of this project and resources taken from OP: GB! 2 are for learning purposes.
 * Under this message I list all people, companies or organization which materials I've used in this project:
 * - Hopson97: Structure of this game is based on his structures of games. Link:
-* - Bandai Namco Entertainment and Shūeisha published One Piece: Gigant Battle! 2 New World. 
-*   I used many features of their product (including texture, sound etc.) 
+* - Bandai Namco Entertainment and Shūeisha published One Piece: Gigant Battle! 2 New World.
+*   I used many features of their product (including texture, sound etc.)
 *
 * MIT License
 * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,24 +29,33 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#ifndef ANIMATION_EFFECT_H
-#define ANIMATION_EFFECT_H
+#ifndef ANIMATION_H
+#define ANIMATION_H
 
 #include "SFML/Graphics.hpp"
-#include <vector>
-#include <memory>
-#include <array>
+#include <iostream>
+#include <algorithm>
+#include "Animation_base.hpp"
 
-// Frame is pure data structure. 
 struct Frame
 {
         sf::IntRect m_frame;
         float m_time_to_next_frame;
 };
 
-class Animation_effect
+class Frame_animation : public Animation_base
 {
     public:
+        // Animation() - default constructor. Calls default base class constuctor Animation_Effect{}
+        // and initialize m_is_animated_now to false.
+        Frame_animation();
+
+        // void animate(sf::Sprite& sprite,float current_time); is main logic member function. It animates sprite
+        // by setting frames continuously in time with a small gap of time beetween each frame.
+        // It also checks if Animation is currently used (is being animated), if not it sets m_is_animated_now to false.
+        void animate(sf::Sprite& sprite,float current_time);
+        void do_animation(sf::Sprite& sprite);
+
         void add_frame(const sf::IntRect& rect, float t);
 
         template<typename... Ts>
@@ -54,24 +63,20 @@ class Animation_effect
         {
                 add_frame(std::forward<Ts>(ts)...);
         }
-
-        // switch_to next_frame() is main logic member of this class.
-        // It changes frame to the next one and if it hits end of the vector, it wraps to the beginning 
-        void switch_to_next_frame(float current_time);
-
-        // returns current frame 
-        int get_current_frame() const;
         
-        std::vector<Frame>& get_frames() { return m_frames; }
-    protected:
-        // Initializes m_current_frame and m_old_time both to 0
-        Animation_effect();
+        float time_of_animation() const;
 
+        float time_break();
+        
+        // returns current frame
+        int get_current_frame() const;
+
+        std::vector<Frame>& get_frames() { return m_frames; }
+
+    private:
         std::vector<Frame> m_frames;
 
         unsigned int m_current_frame;
-
-        // time from last animation 
-        float m_old_time;
 };
-#endif // ANIMATION_EFFECT_H
+
+#endif // ANIMATION_H

@@ -38,6 +38,8 @@
 #include <TGUI/TGUI.hpp>
 #include "State_base.hpp"
 #include "Animations/Function_animation.hpp"
+#include "Animations/Fade_animation.hpp"
+#include "Animations/Animation_launcher.hpp"
 #include "Utility.hpp"
 #include "Objects/Object.hpp"
 
@@ -55,7 +57,10 @@ class Menu_state : public State
         void update(float dt, float clocked_time);
         void draw();
         void set_up_gui();
-        void switch_to_next_background();
+        //void switch_to_next_background();
+        void init_switching(float clocked_time);
+        void switch_backgrounds(float clocked_time, const std::string& texture_name, 
+                Animation_launcher<Function_animation>& anim);
 
     private:
         tgui::Gui m_gui;
@@ -64,15 +69,29 @@ class Menu_state : public State
         const float m_button_height;
 
         Object m_logo;
-        Object m_background;
+        Object m_background1;
+        Object m_background2;
+        
+        Object* m_background;
+        Object* m_back_background;
 
-        Function_animation<>* m_main_animation;
+        Animation_launcher<Function_animation>* m_main_animation;
+        Animation_launcher<Function_animation>* m_back_animation;
+
+        float m_main_anim_old_time;
+
         int m_background_number;
 
-        Function_animation<> m_ace_background_animation;
-        Function_animation<> m_katakuri_background_animation;
-        Function_animation<> m_strawhats_animation;
-        Function_animation<> m_luffy_gear_second_animation;
+        bool m_background_switching;
+        bool m_init_switching;
+
+        Animation_launcher<Function_animation> m_ace_background_animation;
+        Animation_launcher<Function_animation> m_katakuri_background_animation;
+        Animation_launcher<Function_animation> m_strawhats_animation;
+        Animation_launcher<Function_animation> m_luffy_gear_second_animation;
+        
+        Animation_launcher<Fade_animation> m_fading;
+        Animation_launcher<Fade_animation> m_back_fading;
 };
 
 #endif // MENU_STATE_H

@@ -42,6 +42,13 @@ Play_state::Play_state(Game* game)
         player_second = std::make_unique<Zoro>(m_resource_manager);
         m_background.get_sprite().setScale(3.0f,3.0f);
 
+        m_p1_box.setFillColor(sf::Color::Transparent);
+        m_p2_box.setFillColor(sf::Color::Transparent);
+        m_p1_box.setOutlineThickness(5);
+        m_p2_box.setOutlineThickness(5);
+        m_p1_box.setOutlineColor(sf::Color::Red);
+        m_p2_box.setOutlineColor(sf::Color::Red);
+
         //player_first->get_sprite().setPosition(100f,m_floor);
         //player_second->get_sprite().setPosition(100f,m_floor);
 }
@@ -52,17 +59,30 @@ void Play_state::input(float dt, float clocked_time)
                 m_game->change_state(new Menu_state(m_game));
 }
 
+void Play_state::set_rectangles()
+{
+        sf::FloatRect f = player_first->get_sprite().getGlobalBounds();
+        m_p1_box.setPosition(f.left, f.top);
+        m_p1_box.setSize(sf::Vector2f{f.width, f.height});
+
+
+        f = player_second->get_sprite().getGlobalBounds();
+        m_p2_box.setPosition(f.left, f.top);
+        m_p2_box.setSize(sf::Vector2f{f.width, f.height});
+}
+
 void Play_state::update(float dt, float clocked_time)
 {
         player_first->logic_first(dt,clocked_time);
         player_second->logic_second(dt,clocked_time);
+        set_rectangles();
 }
 
 void Play_state::draw()
 {
-        auto p = player_first->get_sprite().getGlobalBounds();
-        std::cout << p.left << " " << p.top << " " << p.width << " " << p.height << std::endl;
         m_background.draw(m_game->get_render_window());
         player_first->draw(m_game->get_render_window());
         player_second->draw(m_game->get_render_window());
+        m_game->get_render_window().draw(m_p1_box);
+        m_game->get_render_window().draw(m_p2_box);
 }

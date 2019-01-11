@@ -29,9 +29,11 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "Animations/Standard_function_animation.hpp"
+#include "Animations/Function_animation.hpp"
 
-Standard_function_animation::Standard_function_animation(int origin_x_coord,int origin_y_coord,int max_x_coord,int max_y_coord,
+#include <iostream>
+
+Function_animation::Function_animation(int origin_x_coord,int origin_y_coord,int max_x_coord,int max_y_coord,
         int width, int height,float time_to_next_frame,const Func& move_function)
         :m_current_x_coord{origin_x_coord},
         m_current_y_coord{origin_y_coord},
@@ -43,14 +45,12 @@ Standard_function_animation::Standard_function_animation(int origin_x_coord,int 
         m_height{height},
         m_is_end{false},
         m_time_to_next_frame{time_to_next_frame},
-        m_old_time{0.0f},
         m_move_function{move_function},
-        m_rectangle_function { [](int& x,int& y) {} }
+        m_rectangle_function{ [](int& x,int& y) {} }
 {
-
 }
     
-Standard_function_animation::Standard_function_animation(const sf::Vector2i& origin_coordinates,const sf::Vector2i& max_coordinates,
+Function_animation::Function_animation(const sf::Vector2i& origin_coordinates,const sf::Vector2i& max_coordinates,
         const sf::Vector2i rectangle,float time_to_next_frame,const Func& move_function)
         :m_current_x_coord{origin_coordinates.x},
         m_current_y_coord{origin_coordinates.y},
@@ -62,13 +62,12 @@ Standard_function_animation::Standard_function_animation(const sf::Vector2i& ori
         m_height{rectangle.y},
         m_is_end{false},
         m_time_to_next_frame{time_to_next_frame},
-        m_old_time{0.0f},
         m_move_function{move_function},
-        m_rectangle_function { [](int& x,int& y) {} }
+        m_rectangle_function{ [](int& x,int& y) {} }
 {
 
 }
-Standard_function_animation::Standard_function_animation(int origin_x_coord,int origin_y_coord,int max_x_coord,int max_y_coord,
+Function_animation::Function_animation(int origin_x_coord,int origin_y_coord,int max_x_coord,int max_y_coord,
         int width, int height,float time_to_next_frame,const Func& move_function,const Func& rect_function)
         :m_current_x_coord{origin_x_coord},
         m_current_y_coord{origin_y_coord},
@@ -80,14 +79,13 @@ Standard_function_animation::Standard_function_animation(int origin_x_coord,int 
         m_height{height},
         m_is_end{false},
         m_time_to_next_frame{time_to_next_frame},
-        m_old_time{0.0f},
         m_move_function{move_function},
-        m_rectangle_function {rect_function}
+        m_rectangle_function{rect_function}
 {
 
 }
     
-Standard_function_animation::Standard_function_animation(const sf::Vector2i& origin_coordinates,const sf::Vector2i& max_coordinates,
+Function_animation::Function_animation(const sf::Vector2i& origin_coordinates,const sf::Vector2i& max_coordinates,
         const sf::Vector2i rectangle,float time_to_next_frame,const Func& move_function,const Func& rect_function)
         :m_current_x_coord{origin_coordinates.x},
         m_current_y_coord{origin_coordinates.y},
@@ -99,31 +97,47 @@ Standard_function_animation::Standard_function_animation(const sf::Vector2i& ori
         m_height{rectangle.y},
         m_is_end{false},
         m_time_to_next_frame{time_to_next_frame},
-        m_old_time{0.0f},
         m_move_function{move_function},
-        m_rectangle_function {rect_function}
+        m_rectangle_function{rect_function}
 {
 
 }
 
-sf::IntRect Standard_function_animation::operator()(float current_time)
+float Function_animation::time_of_animation() const
 {
-        if(m_is_end){}
-        else if(current_time >= m_old_time + m_time_to_next_frame) // if enough time has passed
+        return m_time_to_next_frame * std::max(m_max_x_coord - m_origin_x_coord, m_max_y_coord - m_origin_y_coord);
+}        
+
+float Function_animation::time_break()
+{
+        return m_time_to_next_frame;
+}
+
+void Function_animation::do_animation(sf::Sprite& sprite)
+{
+        if (m_width <= 0 || m_height <= 0) 
+                throw std::runtime_error{"Animation rectangle: width or height is less than zero. Check rectangle functions"};
+        
+        if (m_is_end) 
         {
-                if(m_width <= 0 || m_height <= 0) throw std::runtime_error{"Animation rectangle: width or height is less than zero. Check rectangle functions"};
-                if((m_current_x_coord >= m_max_x_coord) || (m_current_y_coord >= m_max_y_coord)) // if animation is on its last frame
-                {
-                        m_is_end = true;
-                        m_current_x_coord = m_origin_x_coord; // it starts from beginning another time
-                        m_current_y_coord = m_origin_y_coord; // it starts from beginning another time
-                }
-                else
-                {
-                        m_move_function(m_current_x_coord, m_current_y_coord); // if not it proceed futher
-                        m_rectangle_function(m_width, m_height); // if not it proceed futher
-                }
-                m_old_time = current_time;
+                return;
         }
-        return sf::IntRect{m_current_x_coord, m_current_y_coord, m_width, m_height};
+        else if ((m_current_x_coord >= m_max_x_coord) || (m_current_y_coord >= m_max_y_coord)) // if animation is on its last frame
+        {
+                m_is_end = true;
+        }
+        else
+        {
+                m_move_function(m_current_x_coord, m_current_y_coord); // if not it proceed futher
+                m_rectangle_function(m_width, m_height); // if not it proceed futher
+        }
+
+        sprite.setTextureRect(sf::IntRect{m_current_x_coord, m_current_y_coord, m_width, m_height});
+}
+
+void Function_animation::restart()
+{
+        m_is_end = false;
+        m_current_x_coord = m_origin_x_coord; // starts from beginning another time
+        m_current_y_coord = m_origin_y_coord; // starts from beginning another time
 }

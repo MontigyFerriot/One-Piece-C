@@ -44,24 +44,26 @@ void util::parse_json_file(std::string& json_buffer, const std::string& file_nam
 {
         std::ifstream ist{file_name};
         std::string s;
-        std::unique_ptr<std::string> b = std::make_unique<std::string>();
 
-        if(!ist)
+        if (!ist) 
+        {
                 throw std::runtime_error{"Cannot open the file"};
+                return;
+        }
 
-        while(true)
+        while (true)
         {
                 ist >> s; 
 
-                if(ist) 
+                if (ist) 
                         json_buffer += s;
 
-                if(ist.eof())
+                if (ist.eof())
                         break;
                 
-                if(ist.fail())  
+                //if (ist.fail())  
 
-                if(ist.bad())
+                if (ist.bad())
                         ist.clear();
         }
 }

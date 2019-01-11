@@ -44,7 +44,7 @@ Luffy::Luffy(Resource_manager& resource_manager)
 
         set_up(resource_manager);
 
-        m_sprite.setTextureRect(m_shaking_hands.get_frames()[0].m_frame);
+        m_sprite.setTextureRect(m_shaking_hands.get_animation().get_frames()[0].m_frame);
         m_sprite.setPosition(50.0f,500.0f);
 
         m_sprite.setScale(3.0f,3.0f);
@@ -97,7 +97,7 @@ void Luffy::standing(float current_time)
                 m_direction = Direction::Right;
                 m_sprite.setTexture(m_luffy_right);
         }
-        m_standing.animate(m_sprite,current_time);
+        m_standing.animate(current_time, m_sprite);
 }
 
 void Luffy::shake_hands(float current_time)
@@ -107,7 +107,7 @@ void Luffy::shake_hands(float current_time)
                 m_direction = Direction::Right;
                 m_sprite.setTexture(m_luffy_right);
         }
-        m_shaking_hands.animate(m_sprite,current_time);
+        m_shaking_hands.animate(current_time, m_sprite);
 }
 
 void Luffy::walking_right(float current_time)
@@ -118,7 +118,7 @@ void Luffy::walking_right(float current_time)
                 m_sprite.setTexture(m_luffy_right);
         }
         m_sprite.move(sf::Vector2f{10.0f,0.0f});
-        m_walking_right.animate(m_sprite, current_time);
+        m_walking_right.animate(current_time, m_sprite);
 }
 
 void Luffy::walking_left(float current_time)
@@ -129,7 +129,7 @@ void Luffy::walking_left(float current_time)
                 m_sprite.setTexture(m_luffy_left);
         }
         m_sprite.move(sf::Vector2f{-10.0f,0.0f});
-        m_walking_left.animate(m_sprite, current_time);
+        m_walking_left.animate(current_time, m_sprite);
 }
 
 void Luffy::unique_set_up(Resource_manager& resource_manager)
@@ -139,32 +139,32 @@ void Luffy::unique_set_up(Resource_manager& resource_manager)
 
 void Luffy::set_up_animations()
 { 
-        m_standing.add_frame(sf::IntRect{2,10,42,65},0.5f);
-        m_standing.add_frame(sf::IntRect{45,9,42,66},0.5f);
-        m_standing.add_frame(sf::IntRect{88,8,42,67},0.5f);
+        m_standing.get_animation().add_frame(sf::IntRect{2,10,42,65},0.5f);
+        m_standing.get_animation().add_frame(sf::IntRect{45,9,42,66},0.5f);
+        m_standing.get_animation().add_frame(sf::IntRect{88,8,42,67},0.5f);
         
-        m_shaking_hands.add_frame(sf::IntRect{143,7,34,68},0.1f);
-        m_shaking_hands.add_frame(sf::IntRect{182,5,34,70},0.1f);
-        m_shaking_hands.add_frame(sf::IntRect{223,7,34,68},0.1f);
-        m_shaking_hands.add_frame(sf::IntRect{261,7,34,68},0.3f);
-        m_shaking_hands.add_frame(sf::IntRect{295,8,34,67},0.5f);
-        m_shaking_hands.add_frame(sf::IntRect{329,5,34,70},0.1f);
+        m_shaking_hands.get_animation().add_frame(sf::IntRect{143,7,34,68},0.1f);
+        m_shaking_hands.get_animation().add_frame(sf::IntRect{182,5,34,70},0.1f);
+        m_shaking_hands.get_animation().add_frame(sf::IntRect{223,7,34,68},0.1f);
+        m_shaking_hands.get_animation().add_frame(sf::IntRect{261,7,34,68},0.3f);
+        m_shaking_hands.get_animation().add_frame(sf::IntRect{295,8,34,67},0.5f);
+        m_shaking_hands.get_animation().add_frame(sf::IntRect{329,5,34,70},0.1f);
         
-        m_walking_right.add_frame(sf::IntRect{392,18,49,57},0.1f);
-        m_walking_right.add_frame(sf::IntRect{441,16,49,59},0.1f);
-        m_walking_right.add_frame(sf::IntRect{490,21,57,54},0.1f);
-        m_walking_right.add_frame(sf::IntRect{547,17,46,58},0.1f);
-        m_walking_right.add_frame(sf::IntRect{597,18,50,57},0.1f);
-        m_walking_right.add_frame(sf::IntRect{647,16,51,59},0.1f);
-        m_walking_right.add_frame(sf::IntRect{698,21,58,54},0.1f);
-        m_walking_right.add_frame(sf::IntRect{756,16,48,59},0.1f);
+        m_walking_right.get_animation().add_frame(sf::IntRect{392,18,49,57},0.1f);
+        m_walking_right.get_animation().add_frame(sf::IntRect{441,16,49,59},0.1f);
+        m_walking_right.get_animation().add_frame(sf::IntRect{490,21,57,54},0.1f);
+        m_walking_right.get_animation().add_frame(sf::IntRect{547,17,46,58},0.1f);
+        m_walking_right.get_animation().add_frame(sf::IntRect{597,18,50,57},0.1f);
+        m_walking_right.get_animation().add_frame(sf::IntRect{647,16,51,59},0.1f);
+        m_walking_right.get_animation().add_frame(sf::IntRect{698,21,58,54},0.1f);
+        m_walking_right.get_animation().add_frame(sf::IntRect{756,16,48,59},0.1f);
         
-        m_walking_left.add_frame(sf::IntRect{441,18,49,57},0.1f); 
-        m_walking_left.add_frame(sf::IntRect{392,16,49,59},0.1f);
-        m_walking_left.add_frame(sf::IntRect{335,21,57,54},0.1f);
-        m_walking_left.add_frame(sf::IntRect{285,17,46,58},0.1f);
-        m_walking_left.add_frame(sf::IntRect{235,18,50,57},0.1f);
-        m_walking_left.add_frame(sf::IntRect{184,16,51,59},0.1f);
-        m_walking_left.add_frame(sf::IntRect{126,21,58,54},0.1f);
-        m_walking_left.add_frame(sf::IntRect{78,16,48,59},0.1f);
+        m_walking_left.get_animation().add_frame(sf::IntRect{441,18,49,57},0.1f); 
+        m_walking_left.get_animation().add_frame(sf::IntRect{392,16,49,59},0.1f);
+        m_walking_left.get_animation().add_frame(sf::IntRect{335,21,57,54},0.1f);
+        m_walking_left.get_animation().add_frame(sf::IntRect{285,17,46,58},0.1f);
+        m_walking_left.get_animation().add_frame(sf::IntRect{235,18,50,57},0.1f);
+        m_walking_left.get_animation().add_frame(sf::IntRect{184,16,51,59},0.1f);
+        m_walking_left.get_animation().add_frame(sf::IntRect{126,21,58,54},0.1f);
+        m_walking_left.get_animation().add_frame(sf::IntRect{78,16,48,59},0.1f);
 }

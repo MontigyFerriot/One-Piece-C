@@ -29,46 +29,61 @@
 * SOFTWARE.
 **********************************************************************************************************************************/
 
-#include "Animations/Animation.hpp"
-
+#include "Animations/Frame_animation.hpp"
+#include <iostream>
 
 // Animation() - default constructor. Calls default base class constuctor Animation_Effect{} 
 // and initialize m_is_animated_now to false. 
-Animation::Animation()
-        :Animation_effect{},
-         m_is_animated_now{false}
+Frame_animation::Frame_animation()
+        :m_current_frame{0}
 {
 }
 
+void Frame_animation::add_frame(const sf::IntRect& rect, float t)
+{
+        //create and intialize object
+        Frame frame;
+        frame.m_frame = rect;
+        frame.m_time_to_next_frame = t;
 
-// void animate(sf::Sprite& sprite,float current_time); is main logic member function. It animates sprite
+        //push it back to vector
+        m_frames.emplace_back(frame);
+}
+
+float Frame_animation::time_of_animation() const
+{
+        float f = 0.0f;
+
+        for (const auto& frame : m_frames)
+                f += frame.m_time_to_next_frame;
+
+        return f;
+}
+
+float Frame_animation::time_break()
+{
+        return m_frames[m_current_frame].m_time_to_next_frame;
+}
+        
+/// void Frame_animation::operator()(sf::Sprite& sprite,float current_time); is main logic member function. It animates sprite
 // by setting frames continuously in time with a small gap of time beetween each frame.
 // It also checks if Animation is currently used (is being animated), if not it sets m_is_animated_now to false. 
-void Animation::animate(sf::Sprite& sprite, float current_time)
+void Frame_animation::do_animation(sf::Sprite& sprite)
 {
-        if(m_frames.size() < 1) 
+        if (m_current_frame == m_frames.size() - 1) // if animation is on its last frame 
         {
-                std::cerr << "Cannot animate animation!" << std::endl;
-                return;
-        }
-        if(longest_frame_gap() > ( current_time - m_old_time ) + 0.5f)
+                m_current_frame = 0; // it starts from beginning another time
+        } 
+        else 
         {
-                m_is_animated_now = false;
+                ++m_current_frame; // if not it proceed futher 
         }
-        if(!m_is_animated_now)
-        {
-                m_old_time = current_time;
-                m_is_animated_now = true;
-        }
-        switch_to_next_frame(current_time);
+
         sprite.setTextureRect(m_frames[m_current_frame].m_frame);
 }
 
-// float longest_frame_gap(); - it returns biggest time gap beetween frames. 
-// return: float of unsigned value 
-float Animation::longest_frame_gap()
+// returns current frame 
+int Frame_animation::get_current_frame() const
 {
-        auto p = std::max_element(m_frames.begin(),m_frames.end(),
-            [](const Frame& f1,const Frame& f2) { return f1.m_time_to_next_frame < f2.m_time_to_next_frame; });
-        return p->m_time_to_next_frame;
+        return m_current_frame; 
 }

@@ -8,9 +8,9 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 include_directories(include)
 
 set(SOURCE_FILES
-                 ./src/Animations/Animation_effect.cpp
-                 ./src/Animations/Animation.cpp
-                 ./src/Animations/Standard_function_animation.cpp
+                 ./src/Animations/Fade_animation.cpp
+                 ./src/Animations/Frame_animation.cpp
+                 ./src/Animations/Function_animation.cpp
                  ./src/Objects/Character_base.cpp
                  ./src/Objects/Luffy.cpp 
                  ./src/Objects/Object_base.cpp 

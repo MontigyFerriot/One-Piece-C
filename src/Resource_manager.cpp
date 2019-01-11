@@ -28,24 +28,19 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *
-*
-*   WARN: get_texture(), get_sound(), get_font() return reference
-*   and they cannot be const member functions like most of the "getters"
-*   (The value of reference may be changed)
-*
-*   WARN: std::map has operator[](Key&& key) overload.
-*   You can insert types with resources with it.
 ***********************************************************************/
 
 #include "Resource_manager.hpp"
 #include "Utility.hpp"
 #include "rapidjson/document.h"
+#include <functional>
 
 namespace rj = rapidjson;
 
 Resource_manager::Resource_manager()
 {
         std::string json;
+        json.reserve(1500U);
         util::parse_json_file(json, "../resources.json");
 
         rj::Document doc;
@@ -53,31 +48,33 @@ Resource_manager::Resource_manager()
 
         std::size_t n;
         rj::SizeType i; 
+        const rj::Value* arr;
 
-        // parse textures 
-        const rj::Value* a = &doc["textures"];
-        assert(a->IsArray());
-        for (i = 0, n = 0; i < a->Size(); ++i, n++) 
-                import_texture((*a)[i].GetString(), n);
-        
-        // parse fonts
-        a = &doc["fonts"];
-        assert(a->IsArray());
-        for (i = 0, n = 0; i < a->Size(); ++i, n++) 
-                import_font((*a)[i].GetString(), n); 
-        
-        // parse sounds
-        a = &doc["sounds"];
-        assert(a->IsArray());
-        for (i = 0, n = 0; i < a->Size(); ++i, n++) 
-                import_sound((*a)[i].GetString(), n); 
+        const char* resources[] = {"textures", "fonts", "sounds", "music"};
 
-        // parse music
-        a = &doc["music"];
-        assert(a->IsArray());
-        for (i = 0, n = 0; i < a->Size(); ++i, n++) 
-                import_music((*a)[i].GetString(), n);
-
+        for(int x = 0; x < sizeof(resources) / sizeof(resources[0]); ++x) 
+        {
+                arr = &doc[resources[x]];
+                assert(arr->IsArray());
+                for (i = 0, n = 0; i < arr->Size(); ++i, ++n) 
+                        switch(x) 
+                        {
+                                case 0:
+                                        import_texture((*arr)[i].GetString(), n);
+                                        break;
+                                case 1:
+                                        import_font((*arr)[i].GetString(), n); 
+                                        break;
+                                case 2:
+                                        import_sound((*arr)[i].GetString(), n); 
+                                        break;
+                                case 3:
+                                        import_music((*arr)[i].GetString(), n);
+                                        break;
+                                default:
+                                        throw std::runtime_error{"lols"};
+                        }
+        }
 }
 
 sf::Texture& Resource_manager::get_texture(const std::string& texture_name)
@@ -99,9 +96,7 @@ void Resource_manager::import_texture(const std::string& texture_name, std::size
 {
         sf::Texture texture; 
         if(!texture.loadFromFile(("../img/" + texture_name)))
-        { 
                 throw std::runtime_error("Cannot load texture: " + texture_name); 
-        }
         else
                 m_textures[n] = std::make_pair(texture_name, texture);
 }
@@ -111,9 +106,7 @@ void Resource_manager::import_sound(const std::string& sound_name, std::size_t n
         //Something is wrong here
         sf::SoundBuffer sound; 
         if(!sound.loadFromFile(("../sfx/" + sound_name)))
-        { 
                 throw std::runtime_error("Cannot load sound: " + sound_name); 
-        }
         else
                 m_sounds[n] = std::make_pair(sound_name, sound);
 }
@@ -122,9 +115,7 @@ void Resource_manager::import_font(const std::string& font_name, std::size_t n)
 {
         sf::Font font; 
         if(!font.loadFromFile(("../fonts/" + font_name)))
-        { 
                 throw std::runtime_error("Cannot load font: " + font_name); 
-        }
         else
                 m_fonts[n] = std::make_pair(font_name, font);
 }
@@ -133,9 +124,7 @@ void Resource_manager::import_music(const std::string& music_name, std::size_t n
 {
         music_ptr music = std::make_shared<sf::Music>(); 
         if(!music->openFromFile(("../sfx/" + music_name)))
-        { 
                 throw std::runtime_error("Cannot load music: " + music_name); 
-        }
         else
                 m_music[n] = std::make_pair(music_name, music);
 }

@@ -51,12 +51,16 @@ class Play_state : public State
         void input(float dt, float clocked_time);
         void update(float dt, float clocked_time);
         void draw();
-    
+        
+        void set_rectangles();
     private:
         Object m_background;
 
         std::unique_ptr<Character_base> player_first; 
         std::unique_ptr<Character_base> player_second; 
+
+        sf::RectangleShape m_p1_box;
+        sf::RectangleShape m_p2_box;
 
         static constexpr float m_floor = 300.f;
 };

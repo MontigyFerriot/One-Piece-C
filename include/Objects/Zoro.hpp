@@ -33,7 +33,8 @@
 #define ZORO_H
 
 #include <SFML/Graphics.hpp>
-#include "Animations/Animation.hpp"
+#include "Animations/Animation_launcher.hpp"
+#include "Animations/Frame_animation.hpp"
 #include "Resource_manager.hpp"
 #include "Character_base.hpp"
 
@@ -61,10 +62,10 @@ class Zoro : public Character_base
     private:
         sf::Texture m_zoro;
 
-        Animation m_standing_right;
-        Animation m_standing_left;
-        Animation m_walking_left;
-        Animation m_walking_right;
+        Animation_launcher<Frame_animation> m_standing_right;
+        Animation_launcher<Frame_animation> m_standing_left;
+        Animation_launcher<Frame_animation> m_walking_left;
+        Animation_launcher<Frame_animation> m_walking_right;
         //Animation m_basic_attack_left;
         //Animation m_basic_attack_right;
 };
