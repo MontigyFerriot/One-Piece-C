@@ -37,6 +37,8 @@
 
 #include <iostream>
 
+#define PRCT 0.75f
+
 Menu_state::Menu_state(Game* game)
         :State{game},
          m_gui{game->get_render_window()},
@@ -45,7 +47,9 @@ Menu_state::Menu_state(Game* game)
          m_background_number{2},
          m_logo{m_resource_manager,"one_piece_logo.png"},
          m_background1{m_resource_manager,"ace_background.png"},
+         m_main_animation_name{"ace_background.png"},
          m_background2{m_resource_manager,"luffy_gear_second.png"},
+         m_back_animation_name{"INIT.png"},
          m_main_animation{&m_ace_background_animation},
          //m_back_animation{&m_luffy_gear_second_animation},
          m_background{&m_background1},
@@ -99,28 +103,41 @@ void Menu_state::update(float dt, float clocked_time)
         {
                 if (m_init_switching) 
                 {
-                        std::cout << "Switching\n";
+                        // std::cout << "Switching\n";
                         init_switching(clocked_time);
                         m_init_switching = false;
                 }
 
-                std::cout << "Main: " << static_cast<int>(m_background->get_sprite().getColor().a) << "\n";
                 m_fading.animate(clocked_time, m_background->get_sprite());
                 m_back_animation->animate(clocked_time, m_back_background->get_sprite());
-                std::cout << "Back: " << static_cast<int>(m_back_background->get_sprite().getColor().a) << "\n";
                 m_back_fading.animate(clocked_time, m_back_background->get_sprite());
 
-                if (m_back_animation->get_animation().is_end()) 
+                //if (m_back_animation->get_animation().is_end()) 
+                //if (abs(m_background->get_sprite().getColor().a - m_back_background->get_sprite().getColor().a) < 3)
+                if (m_background->get_sprite().getColor().a >= 250 and 
+                        m_back_background->get_sprite().getColor().a <= 3)
                 {
                         m_back_animation->get_animation().restart();
                         m_background_switching = false;
+                        // std::cout << "End of Switching\n";
                 }
         }
 
+        // std::cout << "[" << clocked_time << "] " << "m_m: " << m_main_animation_name << " " 
+        //         << static_cast<int>(m_background->get_sprite().getColor().a) << "\n";
+        
+        // std::cout << "[" << clocked_time << "] " << "m_b: " << m_back_animation_name << " " 
+        //         << static_cast<int>(m_back_background->get_sprite().getColor().a) << "\n";
+
         m_main_animation->animate(clocked_time, m_background->get_sprite());
-        if (0.6f * m_main_animation->get_animation().time_of_animation() < clocked_time - m_main_anim_old_time)
+        // clocked_debug("m_m 60%%", PRCT * m_main_animation->get_animation().time_of_animation());
+        // clocked_debug("delta", clocked_time - m_main_anim_old_time);
+        if (PRCT * m_main_animation->get_animation().time_of_animation() < clocked_time - m_main_anim_old_time and !m_background_switching) 
         {
-                std::cout << "that fucking condition is right" << std::endl;
+                        // std::cout << "Time to switch:\n";
+                        // clocked_debug("Before switch main animation", m_main_animation_name);
+                        // clocked_debug("Before switch back animation", m_back_animation_name);
+ 
                 m_background_switching = true;
                 m_init_switching = true;
         }
@@ -134,7 +151,7 @@ void Menu_state::draw()
         if (m_background_switching)
                 m_back_background->draw(m_game->get_render_window());
         m_background->draw(m_game->get_render_window());
-                m_back_background->draw(m_game->get_render_window());
+        m_back_background->draw(m_game->get_render_window());
         m_logo.draw(m_game->get_render_window());
         m_gui.draw();
 }
@@ -143,7 +160,7 @@ void Menu_state::init_switching(float clocked_time)
 {
         int c;
 
-        while ((c = util::randomize(1,4)) == m_background_number);
+        while ((c = util::randomize(1, 4)) == m_background_number);
         m_background_number = c;
 
         switch (c)
@@ -169,23 +186,32 @@ void Menu_state::switch_backgrounds(float clocked_time, const std::string& textu
         Animation_launcher<Function_animation>& anim)
 {
         sf::Color p;
-        float x;
+        float time_break;
 
-        x = 0.75f * anim.get_animation().time_of_animation() / 256.f;
+        time_break = 0.6f * anim.get_animation().time_of_animation() / 256.f;
         p = m_background->get_sprite().getColor();
 
         std::swap(m_background, m_back_background); 
+        m_back_animation_name = m_main_animation_name; 
 
         m_back_animation = m_main_animation; 
-        m_back_fading = Fade_animation{x - 0.5f, 255, 4, 4};
+        m_back_fading = Fade_animation{time_break - 0.4f, 255, 0, 2};
 
-        m_fading = Fade_animation{x - 0.5f, 4, 255, 4};
+        m_fading = Fade_animation{time_break - 0.4f, 0, 255, 2};
         m_background->get_sprite().setTexture(m_resource_manager.get_texture(texture_name));
+        m_main_animation_name = texture_name;
         m_main_animation = &anim;
-
+        
         p.a = 0;
         m_background->get_sprite().setColor(p);
         m_main_anim_old_time = clocked_time;
+        
+        // clocked_debug("After switch main animation", m_main_animation_name);
+        // clocked_debug("After switch back animation", m_back_animation_name);
+        // clocked_debug("time of animation", m_main_animation->get_animation().time_of_animation());
+        // clocked_debug("60% of time of animation", PRCT * m_main_animation->get_animation().time_of_animation());
+        // clocked_debug("m_main_anim_old_time", m_main_anim_old_time);
+        // clocked_debug("clocked time - m_main_anim_old_time", clocked_time - m_main_anim_old_time);
 }
 
 void Menu_state::set_up_gui()

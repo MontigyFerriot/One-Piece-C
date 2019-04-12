@@ -52,27 +52,26 @@ Resource_manager::Resource_manager()
 
         const char* resources[] = {"textures", "fonts", "sounds", "music"};
 
-        for(int x = 0; x < sizeof(resources) / sizeof(resources[0]); ++x) 
+        for (int x = 0; x < sizeof(resources) / sizeof(resources[0]); ++x) 
         {
                 arr = &doc[resources[x]];
                 assert(arr->IsArray());
                 for (i = 0, n = 0; i < arr->Size(); ++i, ++n) 
-                        switch(x) 
-                        {
-                                case 0:
-                                        import_texture((*arr)[i].GetString(), n);
-                                        break;
-                                case 1:
-                                        import_font((*arr)[i].GetString(), n); 
-                                        break;
-                                case 2:
-                                        import_sound((*arr)[i].GetString(), n); 
-                                        break;
-                                case 3:
-                                        import_music((*arr)[i].GetString(), n);
-                                        break;
-                                default:
-                                        throw std::runtime_error{"lols"};
+                        switch (x) {
+                        case 0:
+                                import_texture((*arr)[i].GetString(), n);
+                        break;
+                        case 1:
+                                import_font((*arr)[i].GetString(), n); 
+                        break;
+                        case 2:
+                                import_sound((*arr)[i].GetString(), n); 
+                        break;
+                        case 3:
+                                import_music((*arr)[i].GetString(), n);
+                        break;
+                        default:
+                                throw std::runtime_error{"lols"};
                         }
         }
 }

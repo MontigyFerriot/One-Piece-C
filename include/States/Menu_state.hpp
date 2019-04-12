@@ -1,5 +1,7 @@
 /**********************************************************************************************************************************
 * Copyright (c) 2017-2018 Maciej Falkowski  
+/**********************************************************************************************************************************
+* Copyright (c) 2017-2018 El F. Percy
 * Standard Header. 
 *
 * This project is One Piece: Gigant Battle! 2 New World almost copy. 
@@ -76,7 +78,9 @@ class Menu_state : public State
         Object* m_back_background;
 
         Animation_launcher<Function_animation>* m_main_animation;
+        std::string m_main_animation_name;
         Animation_launcher<Function_animation>* m_back_animation;
+        std::string m_back_animation_name;
 
         float m_main_anim_old_time;
 

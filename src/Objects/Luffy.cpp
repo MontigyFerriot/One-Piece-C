@@ -31,6 +31,11 @@
 
 #include "Objects/Luffy.hpp"
 
+#include "rapidjson/document.h"
+#include "Utility.hpp"
+
+namespace rj = rapidjson;
+
 Luffy::Luffy(Resource_manager& resource_manager)
         :Character_base{resource_manager,"luffy_right.png",Direction::Right,100},
         m_luffy_left{resource_manager.get_texture("luffy_left.png")},
@@ -48,6 +53,36 @@ Luffy::Luffy(Resource_manager& resource_manager)
         m_sprite.setPosition(50.0f,500.0f);
 
         m_sprite.setScale(3.0f,3.0f);
+        
+        /* -------- */
+        // std::string json;
+        // json.reserve(1500U);
+        // util::parse_json_file(json, "../resources.json");
+
+        // rj::Document doc;
+        // doc.Parse(json.c_str());        
+
+
+        // // m_health   = doc["health"].GetInt();
+        // // m_armor    = doc["armor"].GetInt();
+        // // m_has_haki = doc["hasHaki"].GetBool();
+
+
+        // std::size_t n;
+        // rj::SizeType i; 
+        // const rj::Value* arr, inner_arr;
+
+        // const char* resources[] = {"luffy_standing", "luffy_shaking_hands", "luffy_walking_left", "luffy_walking_right"};
+        
+        // m_standing.get_animation().add_frame(sf::IntRect{45,9,42,66},0.5f);
+
+        // arr = &doc["luffy_standing"];
+        // assert(arr->IsArray());
+        // for (i = 0; i < arr->Size(); ++i) 
+        // {
+        //         m_standing.get_animation().add_frame(sf::IntRect{45,9,42,66},0.5f);
+        // }
+        /* ---- */
 }
 
 void Luffy::logic_first(float dt, float current_time)
@@ -92,7 +127,7 @@ void Luffy::logic_second(float dt, float current_time)
 
 void Luffy::standing(float current_time)
 {
-        if(m_direction != Direction::Right)
+        if (m_direction != Direction::Right)
         {
                 m_direction = Direction::Right;
                 m_sprite.setTexture(m_luffy_right);
@@ -102,7 +137,7 @@ void Luffy::standing(float current_time)
 
 void Luffy::shake_hands(float current_time)
 {
-        if(m_direction != Direction::Right)
+        if (m_direction != Direction::Right)
         {
                 m_direction = Direction::Right;
                 m_sprite.setTexture(m_luffy_right);
@@ -112,7 +147,7 @@ void Luffy::shake_hands(float current_time)
 
 void Luffy::walking_right(float current_time)
 {
-        if(m_direction != Direction::Right)
+        if (m_direction != Direction::Right)
         {
                 m_direction = Direction::Right;
                 m_sprite.setTexture(m_luffy_right);
@@ -123,7 +158,7 @@ void Luffy::walking_right(float current_time)
 
 void Luffy::walking_left(float current_time)
 {
-        if(m_direction != Direction::Left)
+        if (m_direction != Direction::Left)
         {
                 m_direction = Direction::Left;
                 m_sprite.setTexture(m_luffy_left);

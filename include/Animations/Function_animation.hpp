@@ -40,8 +40,7 @@
 using Func = std::function<void(int&,int&)>;
 
 class Function_animation : public Animation_base
-{ 
-    public:
+{    public:
         Function_animation(int origin_x_coord,int origin_y_coord,int max_x_coord,int max_y_coord,
             int width, int height, float time_to_next_frame, const Func& move_function);
         
@@ -82,6 +81,8 @@ class Function_animation : public Animation_base
         
         int m_width;
         int m_height;
+    
+        float m_time_of_animation;
         
         Func m_move_function;
         Func m_rectangle_function;

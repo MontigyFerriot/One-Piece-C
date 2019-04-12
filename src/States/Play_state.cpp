@@ -33,6 +33,7 @@
 
 #include "Game.hpp"
 #include "States/Menu_state.hpp"
+#include "Utility.hpp"
 
 Play_state::Play_state(Game* game)
         :State{game},
@@ -75,6 +76,15 @@ void Play_state::update(float dt, float clocked_time)
 {
         player_first->logic_first(dt,clocked_time);
         player_second->logic_second(dt,clocked_time);
+        player_second->logic_second(dt,clocked_time);
+        
+        // if (aabb_intersection(player_first->get_sprite().getGlobalBounds(), 
+        //         player_second->get_sprite().getGlobalBounds()))
+        if (player_first->get_sprite().getGlobalBounds()
+                .intersects(player_second->get_sprite().getGlobalBounds()))
+                        clocked_msg("Intersection beetween characters");
+        
+        
         set_rectangles();
 }
 

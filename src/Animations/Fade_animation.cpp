@@ -18,15 +18,12 @@ void Fade_animation::do_animation(sf::Sprite& sprite)
         
         // condition is completely fucked up
         //if current color is greater then step and we can increment
-        if (m_sign > 0 ? m_p.a + m_step < m_end : m_p.a >= m_step and m_p.a - m_step > m_end)
-        {
+        // if (m_sign > 0 ? m_p.a + m_step <= m_end : m_p.a >= m_step and m_p.a - m_step >= m_end)
+        if ((!m_sign ? m_p.a >= m_step : true) and
+                m_sign > 0 ? m_p.a + (m_sign * m_step) <= m_end : m_p.a + (m_sign * m_step) >= m_end)
                 m_p.a += m_sign * m_step;
-        }
         else 
-        {
-                std::cout << "Returning" << std::endl;
                 return;
-        }
 
         sprite.setColor(m_p);
 }

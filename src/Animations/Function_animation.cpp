@@ -48,6 +48,20 @@ Function_animation::Function_animation(int origin_x_coord,int origin_y_coord,int
         m_move_function{move_function},
         m_rectangle_function{ [](int& x,int& y) {} }
 {
+        int step_x, step_y;
+        
+        step_x = step_y = 0;
+        move_function(step_x, step_y);
+
+        if (step_x == 0 and step_y == 0)
+                throw std::runtime_error{"Steps of step function set improperly"};
+        else if (step_x == 0)
+                m_time_of_animation = m_time_to_next_frame * (m_max_y_coord / step_y);
+        else if (step_y == 0) 
+                m_time_of_animation = m_time_to_next_frame * (m_max_x_coord / step_x);
+        else 
+                m_time_of_animation = m_time_to_next_frame * 
+                        std::min(m_max_x_coord / step_x, m_max_y_coord / step_y);
 }
     
 Function_animation::Function_animation(const sf::Vector2i& origin_coordinates,const sf::Vector2i& max_coordinates,
@@ -100,12 +114,11 @@ Function_animation::Function_animation(const sf::Vector2i& origin_coordinates,co
         m_move_function{move_function},
         m_rectangle_function{rect_function}
 {
-
 }
 
 float Function_animation::time_of_animation() const
 {
-        return m_time_to_next_frame * std::max(m_max_x_coord - m_origin_x_coord, m_max_y_coord - m_origin_y_coord);
+        return m_time_of_animation;
 }        
 
 float Function_animation::time_break()

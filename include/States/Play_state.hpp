@@ -51,6 +51,20 @@ class Play_state : public State
         void input(float dt, float clocked_time);
         void update(float dt, float clocked_time);
         void draw();
+
+        /* 
+                left top height width
+        
+         */
+        template<typename T>
+        bool aabb_intersection(const T& obj_a, const T& obj_b)
+        {
+                if (obj_a.left < obj_b.left + obj_b.width and obj_a.left + obj_a.width > obj_b.left and
+                        obj_a.top < obj_b.top + obj_b.height and obj_a.top + obj_a.height > obj_b.top)
+                                return true;
+                
+                return false;
+        }
         
         void set_rectangles();
     private:

@@ -36,6 +36,12 @@
 #include <fstream>
 #include <memory>
 
+#define clocked_msg(message) \
+        std::cout << "[" << clocked_time << "] " << (message) << ".\n"
+
+#define clocked_debug(message, var) \
+        std::cout << "[" << clocked_time << "] " << (message) << ": " << (var) << "\n"
+
 namespace util 
 {
         int randomize(int min,int max);

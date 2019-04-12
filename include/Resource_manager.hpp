@@ -19,7 +19,7 @@
 *
 * The above copyright notice and this permission notice shall be included in all
 * copies or substantial portions of the Software.
-*
+*https://lichess.org/Qgnyf9Rc
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -72,13 +72,13 @@ class Resource_manager
         {
                 std::size_t low = 0, high = arr.size(), middle;
 
-                while(low < high)
+                while (low < high)
                 { 
                         middle = low + (high - low) / 2;
 
-                        if(value < arr[middle].first)
+                        if (value < arr[middle].first)
                                 high = middle;
-                        else if(value > arr[middle].first)
+                        else if (value > arr[middle].first)
                                 low = middle + 1;
                         else
                                 return arr[middle].second;
@@ -87,10 +87,10 @@ class Resource_manager
                 throw std::runtime_error{"binary_search(): Cannot find " + value};
         }
 
-        static constexpr std::size_t m_textures_size = 11; 
-        static constexpr std::size_t m_sounds_size   = 1; 
-        static constexpr std::size_t m_fonts_size    = 1; 
-        static constexpr std::size_t m_music_size    = 3; 
+        static constexpr std::size_t m_textures_size = 11UL; 
+        static constexpr std::size_t m_sounds_size   = 1UL; 
+        static constexpr std::size_t m_fonts_size    = 1UL; 
+        static constexpr std::size_t m_music_size    = 3UL; 
 
     private:
         std::array<Texture, m_textures_size> m_textures;

@@ -27,9 +27,12 @@ class Fade_animation : public Animation_base
 
         private:
         float m_time_break;
-        sf::Uint8 m_begin;
-        sf::Uint8 m_end;
-        sf::Uint8 m_step;
+        // sf::Uint8 m_begin;
+        // sf::Uint8 m_end;
+        // sf::Uint8 m_step;
+        int m_begin;
+        int m_end;
+        int m_step;
         int m_sign;
         sf::Color m_p;
 };

@@ -40,7 +40,7 @@ Game::Game()
         m_music_player{m_resource_manager},
         m_last_time{0}
 {
-        m_window.create(sf::VideoMode(m_win_width,m_win_height), "One Piece: C",sf::Style::Fullscreen); //initializing window 
+        m_window.create(sf::VideoMode(m_win_width,m_win_height), "One Piece: C"/*,sf::Style::Fullscreen */); //initializing window  
         change_state(new Menu_state(this));
         m_window.setFramerateLimit(60); // set max. FPS to 60
 

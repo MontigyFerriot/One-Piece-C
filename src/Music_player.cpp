@@ -59,7 +59,7 @@ void Music_player::stop() noexcept
 
 void Music_player::next(float t) noexcept
 {
-        if(t - m_last_activity_time < delay or 
+        if (t - m_last_activity_time < delay or 
             m_current_music == (m_resource_manager.m_music.size() - 1))
                     return;
 
@@ -72,7 +72,7 @@ void Music_player::next(float t) noexcept
 
 void Music_player::previous(float t) noexcept
 {
-          if(t - m_last_activity_time < delay or m_current_music == 0U)
+          if (t - m_last_activity_time < delay or m_current_music == 0U)
                   return;
 
           m_last_activity_time = t;
@@ -84,7 +84,7 @@ void Music_player::previous(float t) noexcept
 
 void Music_player::shuffle_play(float t) noexcept
 {
-        if(t - m_last_activity_time < delay)
+        if (t - m_last_activity_time < delay)
                 return;
         m_last_activity_time = t;
 
